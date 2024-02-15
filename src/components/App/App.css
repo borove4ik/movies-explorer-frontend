@@ -1,0 +1,11 @@
+.App {
+  text-align: center;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #073042;
+  background-image: url(../../images/pic__COLOR_landing-logo.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 156px;
+  background-attachment: fixed;
+}

@@ -1,0 +1,75 @@
+.student {
+    background-color: #272727;
+    width: 100%;
+     padding: 110px 70px;
+     display: grid;
+     grid-template: "title title"
+                    "subtitle photo"
+                    "description photo"
+                    "text photo"
+                    "github photo";
+    row-gap: 18px;
+}
+
+.student__title {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: left;
+    width: 100%;
+    border-bottom: 1px solid #DADADA;
+    padding-bottom: 23px;
+    margin: 0;
+    grid-area: title;
+    margin-bottom: 48px;
+}
+
+.student__subtitle {
+    margin: 0;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 58px;
+    text-align: left;
+    grid-area: subtitle;
+    max-height: 58px;
+}
+
+.student__description {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+    padding-bottom: 8px;
+    margin: 0;
+    grid-area: description;
+
+}
+
+.student__text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+    margin: 0;
+    grid-area: text;
+    max-width: 600px;
+
+}
+
+.student__photo {
+    max-width: 270px;
+    max-height: 327px;
+    border-radius: 10px;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    grid-area: photo;
+}
+
+.student__github {
+    grid-area: github;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 17px;
+    text-align: left;
+    color: #FFFF
+}

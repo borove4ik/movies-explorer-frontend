@@ -1,0 +1,88 @@
+.AboutProject {
+    background-color: #202020;
+    padding: 110px 70px;
+    display: grid;
+    grid-template: "title title"
+                    "stages time"
+                    "text-stages text-time"
+                    "progress-bar progress-bar";
+    grid-gap: 26px;
+}
+
+.AboutProject__progress-bar {
+    width: 100%;
+    display: flex;
+    grid-area: progress-bar;
+}
+
+.AboutProject__back-end {
+    width: 20%;
+}
+
+.AboutProject__front-end {
+    width: 80%;
+}
+
+.AboutProject__back-end-timeline {
+    background-color: #3DDC84;
+    height: 36px;
+    color: #202020;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AboutProject__front-end-timeline {
+    background-color: #303030;
+    height: 36px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AboutProject__underline-text {
+    margin: 0;
+    padding-top: 14px;
+    color: #8B8B8B;
+}
+
+.AboutProject__title {
+    font-family: Inter;
+    font-size: 22px;
+    font-weight: 400;
+    text-align: left;
+    grid-area: title;
+    padding-bottom: 23px;
+    margin: 0;
+    border-bottom: 1px solid #DADADA;
+}
+
+.AboutProject__subtitle {
+    margin: 0;
+    padding-top: 44px;
+}
+
+.AboutProject__stages {
+    grid-area: stages;
+    
+}
+
+.AboutProject__time {
+    grid-area: time;
+}
+
+.AboutProject__text {
+    margin: 0;
+    padding-bottom: 84px;
+}
+
+.AboutProject__text-stages {
+    grid-area: text-stages;
+
+}
+
+.AboutProject__text-time {
+    grid-area: text-time;
+}
