@@ -1,14 +1,16 @@
 .student {
-    background-color: #272727;
+    background-color: #202020;
     width: 100%;
-     padding: 110px 70px;
+     padding: 110px 70px 101px;
      display: grid;
      grid-template: "title title"
-                    "subtitle photo"
-                    "description photo"
-                    "text photo"
+                    "info photo"
                     "github photo";
-    row-gap: 18px;
+    row-gap: 66px;
+}
+
+.student__info {
+    grid-area: info;
 }
 
 .student__title {
@@ -21,7 +23,6 @@
     padding-bottom: 23px;
     margin: 0;
     grid-area: title;
-    margin-bottom: 48px;
 }
 
 .student__subtitle {
@@ -30,8 +31,7 @@
     font-weight: 400;
     line-height: 58px;
     text-align: left;
-    grid-area: subtitle;
-    max-height: 58px;
+    padding-bottom: 18px;
 }
 
 .student__description {
@@ -39,9 +39,8 @@
     font-weight: 500;
     line-height: 20px;
     text-align: left;
-    padding-bottom: 8px;
+    padding-bottom: 26px;
     margin: 0;
-    grid-area: description;
 
 }
 
@@ -51,7 +50,6 @@
     line-height: 22px;
     text-align: left;
     margin: 0;
-    grid-area: text;
     max-width: 600px;
 
 }
@@ -60,9 +58,11 @@
     max-width: 270px;
     max-height: 327px;
     border-radius: 10px;
-    aspect-ratio: 4 / 5;
     object-fit: cover;
     grid-area: photo;
+    /* min-height: 327px; */
+    justify-self: end;
+    aspect-ratio: 10321 / 12500;
 }
 
 .student__github {
@@ -71,5 +71,77 @@
     font-weight: 500;
     line-height: 17px;
     text-align: left;
-    color: #FFFF
+    color: #FFFF;
+    padding-top: 33px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.4s ease-in-out;
+    text-decoration: none;
+}
+
+.student__github:hover {
+   text-decoration: underline white;
+
+}
+
+@media (max-width: 970px) {
+    .student{
+        padding: 90px 50px 91px;
+
+    }
+    .student__photo {
+        max-width: 255px;
+        max-height: 307px;
+    }
+    .student__text {
+        max-width: 364px;
+
+    }
+}
+
+@media (max-width: 767px) {
+    .student {
+        grid-template: "title"
+                        "photo"
+                        "info"
+                        "github";
+        grid-template-columns: auto;
+    }
+    .student__title {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    text-align: left;
+
+    }
+    .student__photo {
+        max-width: 292px;
+        max-height: 352px;
+        justify-self: center;
+    }
+
+    .student__subtitle{
+        font-size: 30px;
+    }
+
+    _.student__description {
+        font-size: 11px;
+        line-height: 16px;  
+    }
+
+    .student__text {
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 16px;
+    }
+    .student__github{
+        justify-self: left;
+    }
+    
+}
+
+@media (max-width: 500px){
+    .student{
+        padding: 70px 14px;
+    }
 }

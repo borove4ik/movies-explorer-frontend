@@ -17,10 +17,13 @@
 
 .AboutProject__back-end {
     width: 20%;
+    min-width: 100px;
 }
 
 .AboutProject__front-end {
     width: 80%;
+    min-width: 184px;
+    
 }
 
 .AboutProject__back-end-timeline {
@@ -49,7 +52,6 @@
 }
 
 .AboutProject__title {
-    font-family: Inter;
     font-size: 22px;
     font-weight: 400;
     text-align: left;
@@ -62,6 +64,11 @@
 .AboutProject__subtitle {
     margin: 0;
     padding-top: 44px;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
 }
 
 .AboutProject__stages {
@@ -76,6 +83,10 @@
 .AboutProject__text {
     margin: 0;
     padding-bottom: 84px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
 }
 
 .AboutProject__text-stages {
@@ -85,4 +96,45 @@
 
 .AboutProject__text-time {
     grid-area: text-time;
+}
+
+@media (max-width: 970px) {
+    .AboutProject{
+        padding: 90px 50px;
+        grid-gap: 22px;
+    }
+    .AboutProject__text {
+        padding-bottom: 71px;
+    }
+
+
+}
+
+@media (max-width: 768px) {
+    .AboutProject {
+        padding: 70px 18px 69px;
+        grid-template: "title"
+                        "stages"
+                        "text-stages"
+                        "time"
+                        "text-time"
+                        "progress-bar";
+
+        grid-gap: 16px;
+    }
+    .AboutProject__text {
+        padding-bottom: 44px;
+    }
+    .AboutProject__underline-text{
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .AboutProject__back-end-timeline{
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .AboutProject__front-end-timeline{
+        font-size: 11px;
+        line-height: 13px;
+    }
 }

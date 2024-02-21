@@ -31,9 +31,11 @@ module.exports = {
         "react"
     ],
     "rules": {
-        "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error",
-"react/jsx-indent": ["error", 2],
-    "react/jsx-indent-props": ["error", 2]
+        "no-unused-vars": "off",
+        "react/prop-types": "off",
+        "react/jsx-uses-react": "warn",
+        "react/jsx-uses-vars": "warn",
+"react/jsx-indent": ["warn", 2],
+    "react/jsx-indent-props": ["warn", 2]
     }
 }

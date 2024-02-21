@@ -1,6 +1,6 @@
 .promo {
-    height: 524px;
-    padding-top: 184px;
+    display: flex;
+    padding: 184px 0 224px;
 }
 
 .promo__title {
@@ -10,4 +10,23 @@
     text-align: center;
     margin: 0 auto;
     max-width: 730px;
+}
+
+@media (max-width: 970px) {
+    .promo {
+        padding: 326px 19px 342px; 
+    }
+    
+}
+
+@media (max-width: 768px) {
+    .promo {
+      padding: 207px 10px 246px;
+    }
+    .promo__title {
+        font-size: 31px;
+        line-height: 39px;
+        letter-spacing: -0.04em;
+    }
+    
 }

@@ -3,13 +3,11 @@ import './NavTab.css'
 
 const NavTab = () => {
     return (
-      <>
-        <section className="NavTab">
-          <button className="NavTab__button">О проекте</button>
-          <button className="NavTab__button">Технологии</button>
-          <button className="NavTab__button">Студент</button>
-        </section>      
-      </>
+      <section className="NavTab">
+        <button className="NavTab__button">О проекте</button>
+        <button className="NavTab__button">Технологии</button>
+        <button className="NavTab__button">Студент</button>
+      </section>      
     )
 }
 
