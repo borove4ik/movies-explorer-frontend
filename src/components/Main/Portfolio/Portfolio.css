@@ -14,6 +14,10 @@
     padding-bottom: 30px;
 }
 
+.portfolio__marker {
+    list-style: none;
+}
+
 .portfolio__link {
     border-bottom: 1px solid #424242;
     display: flex;
