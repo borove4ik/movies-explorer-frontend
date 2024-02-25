@@ -31,7 +31,7 @@ const movies = [
 const SavedMovies = () => {
     return (
       <>
-        <Header />
+        <Header authorised={true}/>
         <SearchForm />
         <MoviesCardList moviesToRender={movies}/>
         <Footer />
