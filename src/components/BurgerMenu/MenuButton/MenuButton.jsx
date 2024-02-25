@@ -2,11 +2,11 @@ import React from "react";
 import './MenuButton.css'
 import burgerLines from "../../../images/burger.svg"
 
-const MenuButton = () => {
+const MenuButton = ({clickFunction}) => {
     return (
       <>
-        <button className="menu-button">
-          <img src={burgerLines} alt="" className="menu-button__icon" />
+        <button className="menu-button" type="button" onClick={clickFunction}>
+          <img src={burgerLines} alt="открыть меню" className="menu-button__icon" />
         </button>
       </>
     )

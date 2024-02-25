@@ -1,13 +1,13 @@
 import React from "react";
 import './Login.css';
-import loginLogo from "../../images/logo.svg"
 import InputWithLabel from "../InputWithLabel/InputWithLabel";
 import SubmitButton from "../SubmitButton/SubmitButton";
+import HomeLinkLogo from "../HomeLinkLogo/HomeLinkLogo";
 
 const Login = () => {
     return (
-      <section className="login">
-        <img src={loginLogo} alt="" className="login__logo" />
+      <main className="login">
+        <HomeLinkLogo />
         <h1 className="login__title">Рады видеть!</h1>
         <form >
           <div className="login__form">
@@ -17,10 +17,10 @@ const Login = () => {
           <SubmitButton text='Войти' />
           <div className="login__sign-up-wrapper">
             <p className="login__text">Ещё не зарегистрированы?</p>
-            <a href="" className="login__sign-up-button">Регистрация</a>
+            <a href="/signup" className="login__sign-up-button">Регистрация</a>
           </div>
         </form>
-      </section>
+      </main>
     )
 }
 

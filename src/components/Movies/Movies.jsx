@@ -1,8 +1,6 @@
 import React from "react";
 import './Movies.css'
 import SearchForm from "./SearchForm/SearchForm";
-// import MoviesCardList from "./MoviesCardList/MoviesCardList";
-// import MoviesCard from "./MoviesCard/MoviesCard";
 import movieImage from "../../images/movie.svg"
 import Header from "../Header/Header";
 import Preloader from "./Preloader/Preloader";
@@ -247,32 +245,9 @@ const Movies = () => {
 
   const { movies, getMoreMovies } = useMovies();
 
-//   const renderMovies = () => {
-//       let iterationsRemaining = 12
-//       let lastIndex 
-//       moviesToRender.length === 0 ? lastIndex = 0 : lastIndex = moviesToRender.length; 
-//       for (let i =0; i<iterationsRemaining ; i++) {
-//           setMoviesToRender((prev)=>{
-//             if(moviesToRender.length + 12 > mockMovies.length){
-//               setIsDisabled(true);
-//               iterationsRemaining =  moviesToRender.length - mockMovies.length
-//               console.log('iter', i , iterationsRemaining)
-//               return
-//             } else {
-//               lastIndex++
-//               return[mockMovies[lastIndex-1], ...prev]  
-//             }    
-//           })
-//           console.log(lastIndex, moviesToRender)
-          
-//       }
-//   }
-//   React.useEffect(renderMovies, [])
-
-
     return (
       <>
-        <Header />
+        <Header authorised={true}/>
         <main className="movies">
           <SearchForm/>
           <MoviesCardList moviesToRender={movies}/>

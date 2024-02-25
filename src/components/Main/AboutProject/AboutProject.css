@@ -34,6 +34,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    line-height: 16.94px;
+    font-size: 14px;
 }
 
 .AboutProject__front-end-timeline {
@@ -43,12 +45,20 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+
 }
 
 .AboutProject__underline-text {
     margin: 0;
     padding-top: 14px;
     color: #8B8B8B;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
 }
 
 .AboutProject__title {
@@ -59,6 +69,8 @@
     padding-bottom: 23px;
     margin: 0;
     border-bottom: 1px solid #DADADA;
+    letter-spacing: -0.04em;
+
 }
 
 .AboutProject__subtitle {
@@ -69,6 +81,8 @@
     font-weight: 400;
     line-height: 24px;
     text-align: left;
+    letter-spacing: -0.04em;
+
 }
 
 .AboutProject__stages {
@@ -82,7 +96,7 @@
 
 .AboutProject__text {
     margin: 0;
-    padding-bottom: 84px;
+    padding-bottom: 83px;
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
@@ -103,14 +117,15 @@
         padding: 90px 50px;
         grid-gap: 22px;
     }
+
     .AboutProject__text {
-        padding-bottom: 71px;
+        padding-bottom: 70px;
     }
 
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .AboutProject {
         padding: 70px 18px 69px;
         grid-template: "title"
@@ -124,6 +139,9 @@
     }
     .AboutProject__text {
         padding-bottom: 44px;
+        font-size: 11px;
+        line-height: 16px;
+        padding-bottom: 56px;
     }
     .AboutProject__underline-text{
         font-size: 11px;
@@ -137,4 +155,29 @@
         font-size: 11px;
         line-height: 13px;
     }
+
+    .AboutProject__title {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 27px;
+    }
+
+    .AboutProject__subtitle {
+        letter-spacing: -0.04em;
+        padding-top: 44px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    .AboutProject__text-stages {
+        padding-bottom: 40px;
+    }
+
+    .AboutProject__time {
+        padding-top: 0;
+    }
+    .AboutProject__text-time {
+        padding-bottom: 44px;
+    }
+    
 }

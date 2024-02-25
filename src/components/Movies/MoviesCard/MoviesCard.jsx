@@ -4,7 +4,7 @@ import likeButton from "../../../images/like.svg"
 import deleteButton from "../../../images/delete_movie.svg"
 import likedIcon from "../../../images/like-active.svg"
 
-const MoviesCard = ({imageLink, title, duration, isCardSaved, isCardliked}) => {
+const MoviesCard = ({imageLink, title, duration, isCardSaved, isCardliked, altText}) => {
   let buttonIcon
 
   if(isCardSaved) {
@@ -18,12 +18,12 @@ const MoviesCard = ({imageLink, title, duration, isCardSaved, isCardliked}) => {
 
     return (
       <div className="card">
-        <img src={imageLink} alt="" className="card__image" />
+        <img src={imageLink} alt={altText} className="card__image" />
         <div className="card__info">
-          <p className="card__title">{title}</p>
+          <h2 className="card__title">{title}</h2>
           <button className="card__button"
           >
-            <img src={buttonIcon} alt="like" className="card__button-icon" />
+            <img src={buttonIcon} alt="лайк" className="card__button-icon" />
           </button>
           <p className="card__duration">{duration}</p>
         </div>

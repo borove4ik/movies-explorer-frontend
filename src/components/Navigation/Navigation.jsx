@@ -14,7 +14,7 @@ const Navigation = () => {
         <button onClick={toSavedMovies} className="navigation__button">Сохранённые фильмы</button>
         <button onClick={toProfile} className="navigation__button navigation__profile-button"> 
           <p className="navigation__text">Аккаунт</p> 
-          <img src={profileIcon} alt="account button" className="navigation__button-icon navigation__button-icon_blue" />
+          <img src={profileIcon} alt="профиль" className="navigation__button-icon navigation__button-icon_blue" />
         </button>
       </nav>
     )

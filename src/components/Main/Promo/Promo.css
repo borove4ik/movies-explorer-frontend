@@ -10,6 +10,7 @@
     text-align: center;
     margin: 0 auto;
     max-width: 730px;
+    letter-spacing: -0.04em;
 }
 
 @media (max-width: 970px) {
@@ -19,7 +20,7 @@
     
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .promo {
       padding: 207px 10px 246px;
     }

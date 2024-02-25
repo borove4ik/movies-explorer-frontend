@@ -7,11 +7,12 @@ import Techs from '../Main/Techs/Techs';
 import AboutMe from '../Main/AboutMe/AboutMe';
 import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from "../Footer/Footer";
+import { Routes, Route } from "react-router-dom";
 
 const Main = () => {
   return (
     <>
-      <Header authorised={true}/> 
+      <Header authorised={false}/> 
       <main className="main">
         <Promo />
         <NavTab />

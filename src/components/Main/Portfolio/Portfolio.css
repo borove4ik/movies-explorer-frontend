@@ -1,7 +1,7 @@
 .portfolio {
     background-color: #202020;
     margin: 0 auto;
-    padding: 0 70px 125px;
+    padding: 0 70px 105px;
 }
 
 .portfolio__title {
@@ -40,6 +40,7 @@
     text-align: left;
     margin: 0;
     transition: all 0.4s ease-in-out;
+    letter-spacing: -0.04em;
 }
 
 .portfolio__link-icon {
@@ -55,8 +56,13 @@
 
 @media (max-width: 970px) {
     .portfolio {
-   padding: 0 50px 90px; 
+   padding: 0 50px 70px; 
 }
+
+.portfolio__link {
+    padding-top: 19px;
+}
+
 .portfolio__link-text {
     font-size: 28px;
 }
@@ -73,8 +79,13 @@
 
 @media (max-width: 767px) {
     .portfolio {
-   padding: 0 14px 70px; 
+   padding: 0 14px 51px; 
 }
+
+    .portfolio__link {
+        padding-top: 20px;
+    }
+
 .portfolio__link-text {
     font-size: 18px;
     line-height: 28px;
@@ -83,6 +94,7 @@
 
 .portfolio__title {
     font-size: 14px;
+    padding-bottom: 21px;
 }
 
 .portfolio__link-icon {

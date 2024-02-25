@@ -1,10 +1,30 @@
+.burger-overlay {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    justify-content: end;
+    left: 0;
+    z-index: 100;
+    background-color:rgba(0, 0, 0, 0.3);
+    display: none;
+    opacity: 0;
+}
+
+.burger-overlay.burger-overlay_opened {
+    display: flex;
+    opacity: 1;
+    transition: all 0.2s ease-in-out;
+}
+
 .burger-menu {
     max-width: 520px;
     display: flex;
+    width: 67%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background: #202020;   
 }
 
 .burger-menu__close-button {
@@ -93,4 +113,10 @@
     margin: 0;
     padding-right: 6.5px;
     padding-left: 7px;
+}
+
+@media (max-width: 520px) {
+    .burger-menu {
+       width: 100%; 
+    }
 }

@@ -1,13 +1,13 @@
 import React from "react";
 import './Register.css'
-import registerLogo from "../../images/logo.svg";
 import InputWithLabel from "../InputWithLabel/InputWithLabel";
 import SubmitButton from "../SubmitButton/SubmitButton";
+import HomeLinkLogo from "../HomeLinkLogo/HomeLinkLogo";
 
 const Register = () => {
     return (
-      <section className="register">
-        <img src={registerLogo} alt="" className="register__logo" />
+      <main className="register">
+        <HomeLinkLogo />
         <h1 className="register__title">Добро пожаловать!</h1>
         <form >
           <div className="register__form">
@@ -18,10 +18,10 @@ const Register = () => {
           <SubmitButton text='Зарегистрироваться' />
           <div className="register__sign-in-wrapper">
             <p className="register__text">Уже зарегистрированы?</p>
-            <a href="" className="register__sign-in-button">Войти</a>
+            <a href="/signin" className="register__sign-in-button">Войти</a>
           </div>
         </form>
-      </section>
+      </main>
     )
 }
 

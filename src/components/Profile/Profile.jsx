@@ -6,22 +6,22 @@ const Profile = () => {
     return (
       <>
         <Header/>
-        <section className="profile"> 
+        <main className="profile"> 
           <h1 className="profile__title">Привет, Денис!</h1> 
-          <form action="" className="profile__form">
+          <form className="profile__form">
             <div className="profile__input-wrapper">  
-              <label htmlFor="" className="profile__label">Имя</label>
+              <label className="profile__label">Имя</label>
               <input type="text" className="profile__input" />
             </div>
             <div className="profile__input-wrapper profile__input-wrapper_borderless"> 
-              <label htmlFor="" className="profile__label">E-mail</label>
+              <label className="profile__label">E-mail</label>
               <input type="text" className="profile__input" />
             </div>
          
           </form>
-          <button className="profile__edit">Редактировать</button>
-          <a href="" className="profile__sign-out">Выйти из аккаунта</a>
-        </section>
+          <button className="profile__edit" type="submit" >Редактировать</button>
+          <a href="/" className="profile__sign-out">Выйти из аккаунта</a>
+        </main>
        
       </>
        

@@ -1,4 +1,5 @@
 .menu-button {
+    display: none;
     background: transparent;
     outline: none;
     border: none;
@@ -12,3 +13,8 @@
     opacity: 0.3;
 }
 
+@media (max-width: 800px) {
+    .menu-button {
+        display: block;
+    }
+}
