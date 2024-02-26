@@ -1,0 +1,40 @@
+.app {
+  text-align: center;
+  width: 100%;
+  padding: 0;
+  background-color: #202020;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+.page__homepage {
+  background-color: #073042;
+  background-image: url(../../images/pic__COLOR_landing-logo.svg);
+  background-repeat: no-repeat;
+  background-position: 50% 156px;
+  background-attachment: fixed;
+}
+
+@media (max-width: 970px) {
+  .page__homepage{
+    background-position: 50% 298px;
+  }
+  
+}
+
+
+
+@media (max-width: 767px) {
+  .page__homepage{
+    background-position: 50% 218px;
+    background-size: 248px;
+  }
+  
+}

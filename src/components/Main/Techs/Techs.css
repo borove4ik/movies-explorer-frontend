@@ -1,0 +1,119 @@
+.techs {
+    background-color: #272727;
+    padding: 100px 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.techs__title {
+    font-family: Inter;
+    font-size: 22px;
+    font-weight: 400;
+    text-align: left;
+    padding-bottom: 23px;
+    margin: 0;
+    border-bottom: 1px solid #DADADA;
+    width: 100%;
+    letter-spacing: -0.04em;
+}
+
+.techs__subtitle {
+    margin: 0;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 58px;
+    text-align: center;
+    padding-top: 90px;
+    padding-bottom: 26px;
+    letter-spacing: -0.04em;
+}
+
+.techs__text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    padding-bottom: 100px;
+    margin: 0;
+    max-width: 460px;
+    letter-spacing: -0.04em;
+
+}
+
+.techs__features {
+    display: grid;
+    grid-template-columns:  repeat(7, 1fr);
+    /* justify-content: center; */
+    text-align: center;
+    gap: 10px;
+    
+}
+
+.techs__feature {
+    background-color: #303030;
+    border-radius: 10px;
+    margin: 0;
+    padding: 21px 14px 22px;
+    min-width: 90px;
+    list-style: none;
+    letter-spacing: -0.04em;
+    line-height: 17px;
+    font-size: 14px;
+}
+
+@media (max-width: 970px) {
+    .techs {
+        padding: 90px 50px;
+        
+    }
+
+    .techs__subtitle {
+        padding-top: 80px;
+        padding-bottom: 22px;
+    }
+    
+    .techs__text {
+        font-size: 12px;
+        line-height: 18px;
+        padding-bottom: 83px;
+    }
+   
+    .techs__feature{
+        font-size: 12px;
+        line-height: 15px;
+        min-width: 84px;
+        height: 57px;
+    }
+    
+}
+
+@media (max-width: 767px) {
+    .techs {
+        padding: 68px 18px 72px;
+        background: #202020;
+    }
+    .techs__text {
+        font-size: 11px;
+        line-height: 16px;
+        padding-bottom: 50px;
+        }
+
+    .techs__title {
+            font-size: 18px;
+            line-height: 21px;
+            letter-spacing: -0.04em;
+            border-bottom: 1px solid #0000;
+
+        } 
+    .techs__subtitle {
+        font-size: 30px;
+        line-height: 36px;
+        padding-top: 64px;
+        padding-bottom: 24px;
+
+    } 
+    .techs__features{
+        grid-template-columns:  1fr 1fr;
+    }    
+}

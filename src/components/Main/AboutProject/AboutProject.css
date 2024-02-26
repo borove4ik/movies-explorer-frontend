@@ -1,0 +1,183 @@
+.AboutProject {
+    background-color: #202020;
+    padding: 110px 70px;
+    display: grid;
+    grid-template: "title title"
+                    "stages time"
+                    "text-stages text-time"
+                    "progress-bar progress-bar";
+    grid-gap: 26px;
+}
+
+.AboutProject__progress-bar {
+    width: 100%;
+    display: flex;
+    grid-area: progress-bar;
+}
+
+.AboutProject__back-end {
+    width: 20%;
+    min-width: 100px;
+}
+
+.AboutProject__front-end {
+    width: 80%;
+    min-width: 184px;
+    
+}
+
+.AboutProject__back-end-timeline {
+    background-color: #3DDC84;
+    height: 36px;
+    color: #202020;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 16.94px;
+    font-size: 14px;
+}
+
+.AboutProject__front-end-timeline {
+    background-color: #303030;
+    height: 36px;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0em;
+
+}
+
+.AboutProject__underline-text {
+    margin: 0;
+    padding-top: 14px;
+    color: #8B8B8B;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
+}
+
+.AboutProject__title {
+    font-size: 22px;
+    font-weight: 400;
+    text-align: left;
+    grid-area: title;
+    padding-bottom: 23px;
+    margin: 0;
+    border-bottom: 1px solid #DADADA;
+    letter-spacing: -0.04em;
+
+}
+
+.AboutProject__subtitle {
+    margin: 0;
+    padding-top: 44px;
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    letter-spacing: -0.04em;
+
+}
+
+.AboutProject__stages {
+    grid-area: stages;
+    
+}
+
+.AboutProject__time {
+    grid-area: time;
+}
+
+.AboutProject__text {
+    margin: 0;
+    padding-bottom: 83px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+}
+
+.AboutProject__text-stages {
+    grid-area: text-stages;
+
+}
+
+.AboutProject__text-time {
+    grid-area: text-time;
+}
+
+@media (max-width: 970px) {
+    .AboutProject{
+        padding: 90px 50px;
+        grid-gap: 22px;
+    }
+
+    .AboutProject__text {
+        padding-bottom: 70px;
+    }
+
+
+}
+
+@media (max-width: 767px) {
+    .AboutProject {
+        padding: 70px 18px 69px;
+        grid-template: "title"
+                        "stages"
+                        "text-stages"
+                        "time"
+                        "text-time"
+                        "progress-bar";
+
+        grid-gap: 16px;
+    }
+    .AboutProject__text {
+        padding-bottom: 44px;
+        font-size: 11px;
+        line-height: 16px;
+        padding-bottom: 56px;
+    }
+    .AboutProject__underline-text{
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .AboutProject__back-end-timeline{
+        font-size: 11px;
+        line-height: 13px;
+    }
+    .AboutProject__front-end-timeline{
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .AboutProject__title {
+        font-size: 18px;
+        line-height: 22px;
+        padding-bottom: 27px;
+    }
+
+    .AboutProject__subtitle {
+        letter-spacing: -0.04em;
+        padding-top: 44px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    .AboutProject__text-stages {
+        padding-bottom: 40px;
+    }
+
+    .AboutProject__time {
+        padding-top: 0;
+    }
+    .AboutProject__text-time {
+        padding-bottom: 44px;
+    }
+    
+}

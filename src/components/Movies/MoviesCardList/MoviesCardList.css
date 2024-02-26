@@ -1,0 +1,25 @@
+.list {
+    padding: 70px 0 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 37px;
+    column-gap: 24px;
+    flex: 1 0 auto;
+    justify-items: center;
+}
+
+@media (max-width: 970px) {
+    .list {
+        padding: 70px 0 30px;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 30px;
+    }
+  }
+
+@media (max-width: 670px) {
+    .list {
+        padding: 40px 0 26px;
+        grid-template-columns: 1fr;
+        grid-gap: 14px;
+    }
+  }
