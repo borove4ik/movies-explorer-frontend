@@ -3,7 +3,7 @@ import './Movies.css'
 import SearchForm from "./SearchForm/SearchForm";
 import movieImage from "../../images/movie.svg"
 import Header from "../Header/Header";
-import Preloader from "./Preloader/Preloader";
+import LoadMoreButton from "./LoadMoreButton/LoadMoreButton";
 import Footer from "../Footer/Footer"
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 const mockMovies = [
@@ -230,8 +230,8 @@ const useMovies = () => {
     const [iteration, setIteration] = React.useState(1);
     const [movies, setMovies] = React.useState(mockMovies.slice(0, count));
     
-
     const getMoreMovies = () => {
+        
         setMovies(mockMovies.slice(0, count * (iteration + 1)));
         setIteration(prev => prev + 1)
     }
@@ -250,8 +250,8 @@ const Movies = () => {
         <Header authorised={true}/>
         <main className="movies">
           <SearchForm/>
-          <MoviesCardList moviesToRender={movies}/>
-          <Preloader loadMore={getMoreMovies} disabled={isDisabled}/>
+          <MoviesCardList moviesToRender={movies} isLoading={true}/>
+          <LoadMoreButton loadMore={getMoreMovies} disabled={isDisabled}/>
         </main>
         <Footer />
       </>
