@@ -15,7 +15,6 @@ const Header = ({authorised}) => {
   const [ openMenu, setOpenMenu ] = React.useState(false)
   const toggleMenu = () => {
     setOpenMenu(!openMenu)
-    console.log(openMenu)
   }
     return (
       <header className="header">

@@ -1,7 +1,8 @@
+import baseUrls from './urls'
+
 class MainApi {
-    constructor({ baseUrl, headers}) {
-        this._url = baseUrl;
-        this._headers = headers;
+    constructor( baseUrls ) {
+        this._url = baseUrls;
     }
 
     _responseHandler(res) {
@@ -23,14 +24,15 @@ class MainApi {
         }).then(this._responseHandler);
     }
 
-    login = (email, password) => {
+    login = ({email, password}) => {
         return fetch(`${this._url}/signin`, {
           method: "POST",
+          credentials: 'include',
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({email, password}),
         }).then(this._responseHandler);
     }
 
@@ -58,7 +60,7 @@ class MainApi {
     }
 
     updateUser(inputValues) {
-        return fetch(`${this._url}/me`, {
+        return fetch(`${this._url}/users/me`, {
             method: "PATCH",
             credentials: 'include',
             headers: {
@@ -75,12 +77,11 @@ class MainApi {
 
     signOut() {
         return fetch(`${this._url}/signout`, {
-            method: "GET",
-            credentials: 'Include',
+            method: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            }
+            },
         })
         .then(this._responseHandler)
     }
@@ -118,7 +119,7 @@ class MainApi {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(
-                country,
+                {country,
                 director,
                 duration,
                 year,
@@ -128,7 +129,7 @@ class MainApi {
                 nameRU,
                 nameEN,
                 thumbnail,
-                movieId
+                movieId}
             )
         })
         .then(this._responseHandler)
@@ -136,7 +137,7 @@ class MainApi {
 
     deleteMovie (movieId) {
         return fetch(`${this._url}/movies/${movieId}`, {
-            method: "POST",
+            method: "DELETE",
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
@@ -147,3 +148,6 @@ class MainApi {
     }
       
 }
+
+const mainApi = new MainApi(baseUrls.backendUrl)
+export default mainApi

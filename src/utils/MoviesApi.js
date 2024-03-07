@@ -1,4 +1,4 @@
-import { baseUrls } from "./urls";
+import baseUrls  from "./urls";
 
 class MoviesApi {
     constructor(baseUrls) {
@@ -21,4 +21,4 @@ class MoviesApi {
 }
 
 const moviesApi = new MoviesApi(baseUrls);
-export {moviesApi}
+export default moviesApi

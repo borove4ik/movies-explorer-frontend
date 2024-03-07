@@ -9,10 +9,10 @@ import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from "../Footer/Footer";
 import { Routes, Route } from "react-router-dom";
 
-const Main = () => {
+const Main = ({authorised}) => {
   return (
     <>
-      <Header authorised={false}/> 
+      <Header authorised={authorised}/> 
       <main className="main">
         <Promo />
         <NavTab />
