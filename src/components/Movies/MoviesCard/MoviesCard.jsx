@@ -12,41 +12,19 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
     const [isCardSaved, setIsCardSaved] = React.useState((savedMovies.some(item => item.movieId === movie.id)) || movie.owner)
     const location = useLocation()
     const [buttonIcon, setButtonIcon] = React.useState(likeButton)
-    const [savedCardLongId, setSavedCardLongId] = React.useState('');
-    const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
         if (isCardSaved && location.pathname === '/movies') {
             setButtonIcon(likedIcon)
-        } else if (isCardSaved && location.pathname === '/saved-movies') {
+        } else if (isCardSaved && location.pathname.includes( '/saved-movies')) {
             setButtonIcon(deleteButton)
         } else {
             setButtonIcon(likeButton)
         }
     })
 
-    React.useEffect(() => {
-        console.log(location.pathname)
-        if (location.pathname === '/movies' && isCardSaved && savedMovies && savedMovies.length > 0) {
-
-            const savedMovie = savedMovies.find((item) => {
-                return item.movieId === movie.id
-            })
-            if (savedMovie) {
-                setSavedCardLongId(savedMovie._id)
-            }
-        }
-    }, [savedMovies])
-
     const saveMovie = async (e) => {
-        e.preventDefault();
-
-        if (loading) {
-            return;
-        }
-
-        setLoading(true);
-
+        e.preventDefault()
         try {
             const isSaved = savedMovies.some((savedMovie) => savedMovie.movieId === movie.id);
 
@@ -64,40 +42,41 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
                     `${baseUrls.imageLink}${movie.image.formats.thumbnail.url}`,
                     movie.id
                 );
+
                 const savedMoviesList = [...savedMovies, movie];
+
                 setSavedMovies(savedMoviesList);
+                await getData();
+
                 localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
-                getData()
-                setIsCardSaved(true)
+                await setIsCardSaved(true);
             }
         } catch (err) {
             console.log(`Ошибка сохранения фильма: ${err}`);
-        } finally {
-            setLoading(false);
         }
     }
 
     const deleteMovie = async (e) => {
         e.preventDefault()
+        const savedMovie = savedMovies.find((item) => {
+          const id = location.pathname.includes('/saved-movies') ? movie.movieId : movie.id;
+            return item.movieId === id
+        })
 
-        if (loading) {
-            return;
-        }
-
-        setLoading(true);
         try {
-            if (savedCardLongId) {
-                await mainApi.deleteMovie(savedCardLongId);
-                const filtredSavedMovies = savedMovies.filter((savedMovie) => savedMovie.id !== savedCardLongId);
-                localStorage.setItem('savedMovies', JSON.stringify(filtredSavedMovies));
-                setSavedMovies(filtredSavedMovies);
-                getData()
-                setIsCardSaved(false)
+            if (savedMovie && savedMovie._id) {
+                await mainApi.deleteMovie(savedMovie._id);
+                const filteredSavedMovies = savedMovies.filter((savedMovie) => savedMovie.id !== movie.id);
+
+                setSavedMovies(filteredSavedMovies);
+
+                await getData();
+
+                localStorage.setItem('savedMovies', JSON.stringify(filteredSavedMovies));
+                setIsCardSaved(false);
             }
         } catch (err) {
             console.log(`Ошибка удаления фильма: ${err}`);
-        } finally {
-            setLoading(false);
         }
     }
 

@@ -24,16 +24,17 @@ const MoviesCardList = ({ moviesToRender, isLoading, savedMovies, setSavedMovies
           <section className="list">
             {
               moviesToRender.map((movie) => {
-                return (<MoviesCard
-                  savedMovies={savedMovies}
-                  setSavedMovies={setSavedMovies}
-                  movie={movie}
-                  getData={getData}
-                  imageLink={location.pathname === '/movies' ? `${baseUrls.imageLink}${movie.image.url}` : movie.image}
-                  title={movie.nameRU}
-                  duration={movie.duration}
-                  altText={movie.name}
-                  key={movie.id} />)
+                return (
+                  <MoviesCard
+                    savedMovies={savedMovies}
+                    setSavedMovies={setSavedMovies}
+                    movie={movie}
+                    getData={getData}
+                    imageLink={location.pathname === '/movies' ? `${baseUrls.imageLink}${movie.image.url}` : movie.image}
+                    title={movie.nameRU}
+                    duration={movie.duration}
+                    altText={movie.name}
+                    key={movie.id} />)
               })}
           </section>
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import './SavedMovies.css'
 import Header from "../Header/Header";
 import SearchForm from "../Movies/SearchForm/SearchForm";
@@ -10,7 +10,6 @@ import mainApi from "../../utils/MainApi";
 const SavedMovies = ({authorised, savedMovies, setSavedMovies, getData}) => {
   const [errorMessage, setErrorMessage] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
-
   
 
     return (

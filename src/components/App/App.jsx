@@ -21,9 +21,10 @@ function App() {
   
   const navigate = useNavigate()
   const getData = async () => {
-  const responseData = await mainApi.getMovies();
-  localStorage.setItem('savedMovies', JSON.stringify(responseData))
-    setSavedMovies(responseData)
+      const responseData = await mainApi.getMovies();
+      console.log('responseData', responseData)
+      localStorage.setItem('savedMovies', JSON.stringify(responseData))
+      setSavedMovies(responseData)
   }
 
   const handleSignOut = async () => {
@@ -38,9 +39,9 @@ function App() {
     }
   }
 
-  // React.useEffect(() => {
-  //   getData()
-  // }, []);
+  React.useEffect(() => {
+    getData()
+  }, []);
 
 const isHomePage = pathname === '/' ;
 
