@@ -39,6 +39,7 @@ class MainApi {
     checkToken = (token) => {
         return fetch(`${this._url}/users/me`, {
           method: "GET",
+          credentials: 'include',
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -116,7 +117,7 @@ class MainApi {
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(
                 {country,
@@ -136,7 +137,7 @@ class MainApi {
     }
 
     deleteMovie (movieId) {
-        return fetch(`${this._url}/movies/${movieId}`, {
+        return fetch(`${this._url}/movies/${movieId}` , {
             method: "DELETE",
             credentials: 'include',
             headers: {

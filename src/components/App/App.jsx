@@ -38,9 +38,9 @@ function App() {
     }
   }
 
-  React.useEffect(() => {
-    getData()
-  }, []);
+  // React.useEffect(() => {
+  //   getData()
+  // }, []);
 
 const isHomePage = pathname === '/' ;
 
