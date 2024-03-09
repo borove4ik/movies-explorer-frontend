@@ -8,7 +8,7 @@ import baseUrls from "../../../utils/urls";
 import {useLocation} from "react-router-dom";
 
 
-const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setSavedMovies, altText, getData}) => {
+const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setSavedMovies, altText}) => {
     const [isCardSaved, setIsCardSaved] = React.useState((savedMovies.some(item => item.movieId === movie.id)) || movie.owner)
     const location = useLocation()
     const [buttonIcon, setButtonIcon] = React.useState(likeButton)
@@ -46,7 +46,6 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
                 const savedMoviesList = [...savedMovies, movie];
 
                 setSavedMovies(savedMoviesList);
-                await getData();
 
                 localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
                 await setIsCardSaved(true);
@@ -70,8 +69,6 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
 
                 setSavedMovies(filteredSavedMovies);
 
-                await getData();
-
                 localStorage.setItem('savedMovies', JSON.stringify(filteredSavedMovies));
                 setIsCardSaved(false);
             }
@@ -86,6 +83,16 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
         }
     }
 
+    const getMovieTime = (mins) => {
+        let hours = Math.trunc(mins/60);
+        let minutes = mins % 60;
+        if (hours < 1) {
+            return minutes + 'м';
+        } else {
+            return hours + 'ч ' + minutes + 'м';
+        }
+    }
+
     return (
       <div className="card">
         <a className="card__link" href={movie.trailerLink} onClick={linkClickHandler}>
@@ -96,7 +103,7 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
                     >
               <img src={buttonIcon} alt="лайк" className="card__button-icon"/>
             </button>
-            <p className="card__duration">{duration}</p>
+            <p className="card__duration">{getMovieTime(movie.duration)}</p>
           </div>
         </a>
 

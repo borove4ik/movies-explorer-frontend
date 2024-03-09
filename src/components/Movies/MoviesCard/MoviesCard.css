@@ -9,7 +9,8 @@
 
 .card__link {
     display: flex;
-    flex-direction: column;    outline: none;
+    flex-direction: column;
+    outline: none;
     color: #FFFF;
     text-decoration: none;
 }

@@ -10,7 +10,7 @@ import useRenderRule from "../../utils/useRenderRule";
 import cardConfig from "../../utils/cardConfig";
 import moviesApi  from "../../utils/MoviesApi";
 
-const Movies = ({savedMovies, setSavedMovies, getData, authorised}) => {
+const Movies = ({savedMovies, setSavedMovies, authorised}) => {
   const [moviesToRender, setMoviesToRender] = React.useState([])
   const [isDisabled, setIsDisabled] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
@@ -51,7 +51,7 @@ const Movies = ({savedMovies, setSavedMovies, getData, authorised}) => {
         <Header authorised={authorised}/>
         <main className="movies">
           <SearchForm movies={movies} setMovies={setMovies} setIsLoading={setIsLoading} setErrorMessage={setErrorMessage}/>
-          <MoviesCardList savedMovies={savedMovies} setSavedMovies={setSavedMovies} moviesToRender={moviesToRender} getData={getData} isLoading={isLoading} errorMessage={errorMessage}/>
+          <MoviesCardList savedMovies={savedMovies} setSavedMovies={setSavedMovies} moviesToRender={moviesToRender} isLoading={isLoading} errorMessage={errorMessage}/>
           {movies.length > moviesRenderRule.cardsTotal && <LoadMoreButton loadMore={handleShowMore}/>}
         </main>
         <Footer />

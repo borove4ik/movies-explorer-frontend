@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import './App.css';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import SavedMovies from '../SavedMovies/SavedMovies';
@@ -11,21 +11,55 @@ import Movies from '../Movies/Movies';
 import myCn from '../../utils/myCn';
 import mainApi from '../../utils/MainApi';
 import { useNavigate } from 'react-router-dom';
+
 function App() {
   
   const { pathname } = useLocation()
-  const [onHomePage, setOnHomePage] = React.useState(true)
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [authorised, setAuthorised] = React.useState(localStorage.getItem('authorised') ?JSON.parse(localStorage.getItem('authorised')) : false )
   const [currentUser, setCurrentUser] = React.useState({});
+
   
   const navigate = useNavigate()
-  const getData = async () => {
-      const responseData = await mainApi.getMovies();
-      console.log('responseData', responseData)
-      localStorage.setItem('savedMovies', JSON.stringify(responseData))
-      setSavedMovies(responseData)
-  }
+
+  useEffect(() => {
+    const savedMoviesData = JSON.parse(localStorage.getItem('savedMovies'));
+    if (savedMoviesData && location.pathname === '/saved-movies') {
+      setSavedMovies(savedMoviesData);
+    }
+  }, [location.pathname]);
+
+  const checkToken = useCallback(async () => {
+    try {
+      const authorised = localStorage.getItem('authorised');
+      if (authorised) {
+        await mainApi.checkToken();
+        setAuthorised(true);
+      } else {
+        setAuthorised(false);
+        localStorage.removeItem('authorised');
+      }
+    } catch (err) {
+      console.log(err);
+      localStorage.removeItem('authorised');
+      setAuthorised(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkToken();
+    authorised &&
+    Promise.all([mainApi.getMe(), mainApi.getMovies()])
+    .then(([userData, savedMoviesData]) => {
+      setAuthorised(true);
+      setCurrentUser(userData);
+      setSavedMovies(savedMoviesData);
+      localStorage.setItem('savedMovies', JSON.stringify(savedMoviesData));
+    })
+    .catch((err) => {
+      console.log(`Ошибка хука на выдачу данных: ${err}`);
+    });
+  }, [authorised, checkToken]);
 
   const handleSignOut = async () => {
     try {
@@ -39,9 +73,6 @@ function App() {
     }
   }
 
-  React.useEffect(() => {
-    getData()
-  }, []);
 
 const isHomePage = pathname === '/' ;
 
@@ -52,8 +83,8 @@ const isHomePage = pathname === '/' ;
       <div className={myCn('page', {page__homepage: isHomePage} )}> 
         <Routes>
           <Route path='/' element={<Main authorised={authorised}/>}/>
-          <Route path='/movies' element={<Movies savedMovies={savedMovies} setSavedMovies={setSavedMovies} getData={getData} authorised={authorised}/>}/>
-          <Route path='/saved-movies' element={<SavedMovies savedMovies={savedMovies} authorised={authorised} setSavedMovies={setSavedMovies} getData={getData}/>}/>
+          <Route path='/movies' element={<Movies savedMovies={savedMovies} setSavedMovies={setSavedMovies} authorised={authorised}/>}/>
+          <Route path='/saved-movies' element={<SavedMovies savedMovies={savedMovies} authorised={authorised} setSavedMovies={setSavedMovies}/>}/>
           <Route path='/profile' element={<Profile authorised={authorised} currentUser={currentUser} setCurrentUser={setCurrentUser} handleSignOut={handleSignOut}/>}/>
           <Route path='/signin' element={<Login setAuthorised={setAuthorised}/>}/>
           <Route path='/signup' element={<Register setAuthorised={setAuthorised}/>}/>

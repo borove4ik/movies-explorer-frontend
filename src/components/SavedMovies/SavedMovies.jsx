@@ -7,7 +7,7 @@ import Footer from "../Footer/Footer";
 import movieImage from "../../images/movie.svg"
 import mainApi from "../../utils/MainApi";
 
-const SavedMovies = ({authorised, savedMovies, setSavedMovies, getData}) => {
+const SavedMovies = ({authorised, savedMovies, setSavedMovies}) => {
   const [errorMessage, setErrorMessage] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
   
@@ -16,7 +16,7 @@ const SavedMovies = ({authorised, savedMovies, setSavedMovies, getData}) => {
       <>
         <Header authorised={authorised}/>
         <SearchForm movies={savedMovies} setMovies={setSavedMovies} setErrorMessage={setErrorMessage} setIsLoading={setIsLoading}/>
-        <MoviesCardList moviesToRender={savedMovies} errorMessage={errorMessage} isLoading={isLoading} savedMovies={savedMovies} setSavedMovies={setSavedMovies} getData={getData}/>
+        <MoviesCardList moviesToRender={savedMovies} errorMessage={errorMessage} isLoading={isLoading} savedMovies={savedMovies} setSavedMovies={setSavedMovies}/>
         <Footer />
       </>
     )

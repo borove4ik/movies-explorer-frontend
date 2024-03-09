@@ -36,14 +36,13 @@ class MainApi {
         }).then(this._responseHandler);
     }
 
-    checkToken = (token) => {
+    checkToken = () => {
         return fetch(`${this._url}/users/me`, {
           method: "GET",
           credentials: 'include',
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
           },
         }).then(this._responseHandler);
       };
