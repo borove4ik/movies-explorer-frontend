@@ -8,7 +8,7 @@ import baseUrls from "../../../utils/urls";
 import {useLocation} from "react-router-dom";
 
 
-const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setSavedMovies, altText}) => {
+const MoviesCard = ({movie, imageLink, title, savedMovies, setSavedMovies, altText}) => {
     const [isCardSaved, setIsCardSaved] = React.useState((savedMovies.some(item => item.movieId === movie.id)) || movie.owner)
     const location = useLocation()
     const [buttonIcon, setButtonIcon] = React.useState(likeButton)
@@ -16,12 +16,12 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
     React.useEffect(() => {
         if (isCardSaved && location.pathname === '/movies') {
             setButtonIcon(likedIcon)
-        } else if (isCardSaved && location.pathname.includes( '/saved-movies')) {
+        } else if (location.pathname.includes( '/saved-movies')) {
             setButtonIcon(deleteButton)
         } else {
             setButtonIcon(likeButton)
         }
-    })
+    }, [isCardSaved])
 
     const saveMovie = async (e) => {
         e.preventDefault()
@@ -43,11 +43,10 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
                     movie.id
                 );
 
-                const savedMoviesList = [...savedMovies, movie];
+                const movies = await mainApi.getMovies();
 
-                setSavedMovies(savedMoviesList);
+                setSavedMovies(movies);
 
-                localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
                 await setIsCardSaved(true);
             }
         } catch (err) {
@@ -57,6 +56,7 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
 
     const deleteMovie = async (e) => {
         e.preventDefault()
+
         const savedMovie = savedMovies.find((item) => {
           const id = location.pathname.includes('/saved-movies') ? movie.movieId : movie.id;
             return item.movieId === id
@@ -65,11 +65,11 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
         try {
             if (savedMovie && savedMovie._id) {
                 await mainApi.deleteMovie(savedMovie._id);
-                const filteredSavedMovies = savedMovies.filter((savedMovie) => savedMovie.id !== movie.id);
+    
+                const movies = await mainApi.getMovies();
 
-                setSavedMovies(filteredSavedMovies);
+                setSavedMovies(movies);
 
-                localStorage.setItem('savedMovies', JSON.stringify(filteredSavedMovies));
                 setIsCardSaved(false);
             }
         } catch (err) {
@@ -99,7 +99,13 @@ const MoviesCard = ({movie, imageLink, title, duration, saved, savedMovies, setS
           <img src={imageLink} alt={altText} className="card__image"/>
           <div className="card__info">
             <h2 className="card__title">{title}</h2>
-            <button className="card__button" onClick={isCardSaved ? deleteMovie : saveMovie}
+            <button className="card__button" onClick= { (e) => {
+                if (isCardSaved || location.pathname.includes( '/saved-movies')) {
+                    deleteMovie(e);
+                } else {
+                    saveMovie(e)
+                }
+            }}
                     >
               <img src={buttonIcon} alt="лайк" className="card__button-icon"/>
             </button>

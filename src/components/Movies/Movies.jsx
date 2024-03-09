@@ -8,7 +8,6 @@ import Footer from "../Footer/Footer"
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import useRenderRule from "../../utils/useRenderRule";
 import cardConfig from "../../utils/cardConfig";
-import moviesApi  from "../../utils/MoviesApi";
 
 const Movies = ({savedMovies, setSavedMovies, authorised}) => {
   const [moviesToRender, setMoviesToRender] = React.useState([])

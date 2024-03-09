@@ -20,7 +20,7 @@ const Login = ({setAuthorised}) => {
       if(!email || !password){
         return
       }
-      const response = await mainApi.login({email: email, password: password});
+      const response = await mainApi.login({email, password});
       if(!localStorage.getItem('authorised')){
         localStorage.setItem('authorised', true )
       }

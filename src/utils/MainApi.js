@@ -1,4 +1,6 @@
 import baseUrls from './urls'
+import getCookie from './getCookie'
+import setCookie from './setCookie'
 
 class MainApi {
     constructor( baseUrls ) {
@@ -21,7 +23,15 @@ class MainApi {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ name, email, password }),
-        }).then(this._responseHandler);
+        })
+        .then(this._responseHandler)
+        .then(res => {
+            setCookie('jwt', res.token, 7);
+            return res;
+        })
+        .catch(error => {
+            return Promise.reject(`Ошибка: ${error}`);
+        })
     }
 
     login = ({email, password}) => {
@@ -33,39 +43,56 @@ class MainApi {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({email, password}),
-        }).then(this._responseHandler);
+        })
+        .then(this._responseHandler)
+        .then(res => {
+            setCookie('jwt', res.token, 7)
+            return res;
+        })
+        .catch(error => {
+            return Promise.reject(`Ошибка: ${error}`);
+        })
     }
 
     checkToken = () => {
+        const token = getCookie('jwt');
+        
         return fetch(`${this._url}/users/me`, {
           method: "GET",
           credentials: 'include',
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
           },
         }).then(this._responseHandler);
       };
 
       getMe() {
+        const token = getCookie('jwt');
+
         return fetch(`${this._url}/users/me`, {
             method: "GET",
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             }
         })
         .then(this._responseHandler);
     }
 
     updateUser(inputValues) {
+        const token = getCookie('jwt');
+
         return fetch(`${this._url}/users/me`, {
             method: "PATCH",
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify({ 
                 name: inputValues.name,
@@ -87,12 +114,15 @@ class MainApi {
     }
 
     getMovies() {
+        const token = getCookie('jwt');
+
         return fetch(`${this._url}/movies`, {
             method: "GET",
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
         })
         .then(this._responseHandler)
@@ -111,12 +141,15 @@ class MainApi {
         thumbnail,
         movieId
     ) {
+        const token = getCookie('jwt');
+
         return fetch(`${this._url}/movies`, {
             method: "POST",
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(
                 {country,
@@ -136,12 +169,15 @@ class MainApi {
     }
 
     deleteMovie (movieId) {
+        const token = getCookie('jwt');
+
         return fetch(`${this._url}/movies/${movieId}` , {
             method: "DELETE",
             credentials: 'include',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`
             }
         })
         .then(this._responseHandler);

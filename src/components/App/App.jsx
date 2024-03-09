@@ -23,11 +23,11 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const savedMoviesData = JSON.parse(localStorage.getItem('savedMovies'));
-    if (savedMoviesData && location.pathname === '/saved-movies') {
-      setSavedMovies(savedMoviesData);
+    if (savedMovies && savedMovies.length > 0) {
+      const savedMoviesData = localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
     }
-  }, [location.pathname]);
+     
+  }, [savedMovies]);
 
   const checkToken = useCallback(async () => {
     try {
@@ -65,7 +65,13 @@ function App() {
     try {
       await mainApi.signOut()
       localStorage.clear();
-      setCurrentUser({});
+      const cookies = document.cookie.split(';');
+      // set past expiry to all cookies
+      for (var i = 0; i < cookies.length; i++) {
+          document.cookie = cookies[i] + "=; expires="+ new Date(0).toUTCString();
+      }     
+     
+     setCurrentUser({});
       setAuthorised(false)
       navigate('/')
     } catch(err) {
