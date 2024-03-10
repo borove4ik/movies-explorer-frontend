@@ -49,7 +49,7 @@ const Login = ({setAuthorised}) => {
         <form onSubmit={handleSubmit}>
           <div className="login__form">
             <InputWithLabel values={values} errors={errors.email} handleChangeWithLoading={handleChangeWithLoading} name='email' label='E-mail' />
-            <InputWithLabel values={values} errors={errors.password} handleChangeWithLoading={handleChangeWithLoading}name='password' label='Пароль' />
+            <InputWithLabel values={values} errors={errors.password} handleChangeWithLoading={handleChangeWithLoading}name='password'  type='password' label='Пароль' />
           </div>
           <SubmitButton text='Войти' />
           <div className="login__sign-up-wrapper">

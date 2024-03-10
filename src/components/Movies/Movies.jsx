@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import './Movies.css'
 import SearchForm from "./SearchForm/SearchForm";
-import movieImage from "../../images/movie.svg"
 import Header from "../Header/Header";
 import LoadMoreButton from "./LoadMoreButton/LoadMoreButton";
 import Footer from "../Footer/Footer"
@@ -11,7 +10,6 @@ import cardConfig from "../../utils/cardConfig";
 
 const Movies = ({savedMovies, setSavedMovies, authorised}) => {
   const [moviesToRender, setMoviesToRender] = React.useState([])
-  const [isDisabled, setIsDisabled] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
   const [movies, setMovies] = React.useState([])
  
@@ -51,7 +49,7 @@ const Movies = ({savedMovies, setSavedMovies, authorised}) => {
         <main className="movies">
           <SearchForm movies={movies} setMovies={setMovies} setIsLoading={setIsLoading} setErrorMessage={setErrorMessage}/>
           <MoviesCardList savedMovies={savedMovies} setSavedMovies={setSavedMovies} moviesToRender={moviesToRender} isLoading={isLoading} errorMessage={errorMessage}/>
-          {movies.length > moviesRenderRule.cardsTotal && <LoadMoreButton loadMore={handleShowMore}/>}
+          {movies.length > moviesRenderRule.cardsTotal && !errorMessage && <LoadMoreButton loadMore={handleShowMore}/>}
         </main>
         <Footer />
       </>

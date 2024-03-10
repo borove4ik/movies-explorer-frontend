@@ -18,7 +18,6 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [authorised, setAuthorised] = React.useState(localStorage.getItem('authorised') ?JSON.parse(localStorage.getItem('authorised')) : false )
   const [currentUser, setCurrentUser] = React.useState({});
-
   
   const navigate = useNavigate()
 
@@ -59,6 +58,10 @@ function App() {
     .catch((err) => {
       console.log(`Ошибка хука на выдачу данных: ${err}`);
     });
+
+    if (!authorised) {
+      navigate('/');
+    }
   }, [authorised, checkToken]);
 
   const handleSignOut = async () => {

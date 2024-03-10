@@ -7,7 +7,6 @@ import Techs from '../Main/Techs/Techs';
 import AboutMe from '../Main/AboutMe/AboutMe';
 import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from "../Footer/Footer";
-import { Routes, Route } from "react-router-dom";
 
 const Main = ({authorised}) => {
   return (
