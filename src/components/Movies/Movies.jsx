@@ -10,14 +10,14 @@ import CardConfig from "../../utils/CardConfig";
 import { useNavigate } from "react-router-dom";
 
 
-const Movies = ({savedMovies, setSavedMovies, authorised}) => {
+const Movies = ({savedMovies, setSavedMovies, authorised, isDataLoaded}) => {
   const [moviesToRender, setMoviesToRender] = React.useState([])
   const [isLoading, setIsLoading] = React.useState(false)
   const [movies, setMovies] = React.useState([])
-  const navigate = useNavigate()
-  
+  const navigate = useNavigate();  
+  const search = localStorage.getItem('allMoviesSearchQuery') ? localStorage.getItem('allMoviesSearchQuery') : '';
 
- 
+  
   const [errorMessage, setErrorMessage] = React.useState('')
 
   const useMovies = () => {
@@ -42,15 +42,35 @@ const Movies = ({savedMovies, setSavedMovies, authorised}) => {
     return {moviesRenderRule, handleShowMore}
 }
 
+
+  const { moviesRenderRule, handleShowMore } = useMovies();
+
+  useEffect(() => {
   if (!authorised) {
           navigate('/')
         }
-
-  const { moviesRenderRule, handleShowMore } = useMovies();
+  }, [])
   
   useEffect(() => {
       setMoviesToRender(movies.slice(0, moviesRenderRule.cardsTotal))
-  }, [moviesRenderRule.cardsTotal, movies])
+  }, [moviesRenderRule.cardsTotal, movies]);
+
+    useEffect(() => {
+          if (!isDataLoaded && search) {
+              const foundMovies = localStorage.getItem('allMoviesFound') ? JSON.parse(localStorage.getItem('allMoviesFound')) : null;
+              const allMoviesData = localStorage.getItem('allMovies') ? JSON.parse(localStorage.getItem('allMovies')) : null;
+  
+              if (foundMovies) {
+                  setMovies(foundMovies);
+                  return;
+              }
+  
+              if (allMoviesData) {
+                  setMovies(allMoviesData);
+                  return;
+              }
+          }
+      }, [isDataLoaded]);
 
     return (
       <>

@@ -60,7 +60,7 @@ function App() {
         <div className={myCn('page', {page__homepage: pathname === '/'})}>
           <Routes>
             <Route path='/' element={<Main authorised={authorised}/>}/>
-            <Route path='/movies' element={<Movies savedMovies={savedMovies} setSavedMovies={setSavedMovies}
+            <Route path='/movies' element={<Movies  isDataLoaded={isDataLoaded}savedMovies={savedMovies} setSavedMovies={setSavedMovies}
               authorised={authorised}/>}/>
             <Route path='/saved-movies' element={<SavedMovies savedMovies={savedMovies} authorised={authorised}
               isDataLoaded={isDataLoaded}
