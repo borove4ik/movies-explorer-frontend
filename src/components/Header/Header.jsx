@@ -1,7 +1,6 @@
 import React from "react";
 import './Header.css';
-import headerLogo from "../../images/logo.svg";
-import { useParams, useNavigate, Link, NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import MenuButton from "../BurgerMenu/MenuButton/MenuButton";
 import HomeLinkLogo from "../HomeLinkLogo/HomeLinkLogo";

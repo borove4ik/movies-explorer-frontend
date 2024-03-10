@@ -28,8 +28,10 @@ const useFormValidation = () => {
     },
     password: {
       required: true,
+      minLength: 4,
       errorMessages: {
         emptyField: 'поле должно быть заполнено',
+        minLengthError: 'длина пароля должна быть больше четырёх'
       }
     }
   };
@@ -54,6 +56,12 @@ const useFormValidation = () => {
       }
     } else if (name === 'email' && !rule.regExTemplate.test(value)) {
       errorMessage = rule.errorMessages.templateError;
+    } else if (name === 'password') {
+      if (value === '' || !value) {
+        errorMessage = rule.errorMessages.emptyField;
+      } else if (value.length < 4) {
+        errorMessage = rule.errorMessages.minLengthError;
+      }
     }
 
     setErrors(prevErrors => ({ ...prevErrors, [name]: errorMessage }));

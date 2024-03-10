@@ -1,8 +1,8 @@
-import baseUrls  from "./urls";
+import BaseUrls  from "./urls";
 
 class MoviesApi {
-    constructor(baseUrls) {
-        this._url = baseUrls.beatFilmUrl;
+    constructor(BaseUrls) {
+        this._url = BaseUrls.beatFilmUrl;
     }
 
     _responseHandler(res) {
@@ -20,5 +20,5 @@ class MoviesApi {
     }
 }
 
-const moviesApi = new MoviesApi(baseUrls);
+const moviesApi = new MoviesApi(BaseUrls);
 export default moviesApi

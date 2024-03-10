@@ -1,10 +1,10 @@
-import baseUrls from './urls'
+import BaseUrls from './urls'
 import getCookie from './getCookie'
 import setCookie from './setCookie'
 
 class MainApi {
-    constructor( baseUrls ) {
-        this._url = baseUrls;
+    constructor( BaseUrls ) {
+        this._url = BaseUrls;
     }
 
     _responseHandler(res) {
@@ -185,5 +185,5 @@ class MainApi {
       
 }
 
-const mainApi = new MainApi(baseUrls.backendUrl)
+const mainApi = new MainApi(BaseUrls.backendUrl)
 export default mainApi

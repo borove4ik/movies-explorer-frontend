@@ -1,4 +1,4 @@
-const cardConfig = {
+const CardConfig = {
     cardCountConfig: {
       desktop: 3,
       tablet: 2,
@@ -11,4 +11,4 @@ const cardConfig = {
     }
 }
 
-export default cardConfig
+export default CardConfig

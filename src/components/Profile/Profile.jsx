@@ -16,6 +16,8 @@ const Profile = ({
   const { values, errors, formValid, handleInputChange, resetForm } = useFormValidation();
 
   const [infoMessage, setInfoMessage] = useState('')
+    const [isUploading, setIsUploading] = React.useState(false);
+  
 
 
   React.useEffect(() => {
@@ -25,22 +27,10 @@ const Profile = ({
     }, {}, false)
 }, [currentUser, resetForm]);
 
-const getUserName = async () => {
-  try {
-   const userData = await mainApi.getMe()
-   setCurrentUser(userData)
-  } catch(err) {
-    console.log(err)
-  }
-}
-
-React.useEffect(() => {
-  getUserName()
-
-}, [])
-
 const handleSubmit = async (e) => {
   e.preventDefault();
+  setIsUploading(true)
+  
   try {
     const response = await mainApi.updateUser({name: values.name, email: values.email})
     setCurrentUser(response)
@@ -49,6 +39,8 @@ const handleSubmit = async (e) => {
   catch(err) {
     setInfoMessage(err)
   }
+    setIsUploading(false)
+  
 }
 
 const handleInputChangeWithLoading = (e) => {
@@ -71,7 +63,7 @@ const isDataChanged = values.name !== currentUser.name || values.email !== curre
             <div className="profile__input-wrapper">  
               <label className="profile__label">Имя</label>
               <input type="text" 
-                className="profile__input" name='name' value={values.name || ""}
+                className="profile__input" disabled={isUploading} name='name' value={values.name || ""}
                 onChange={handleInputChangeWithLoading}
                 autoComplete="off"
  />           <span className="profile__info-span profile__info-span_error">{errors.name}</span>
@@ -79,7 +71,7 @@ const isDataChanged = values.name !== currentUser.name || values.email !== curre
            
             <div className="profile__input-wrapper profile__input-wrapper_borderless"> 
               <label className="profile__label">E-mail</label>
-              <input type="email" className="profile__input" name='email' value={values.email || ""} onChange={handleInputChangeWithLoading}/>
+              <input type="email" className="profile__input" disabled={isUploading}name='email' value={values.email || ""} onChange={handleInputChangeWithLoading}/>
               <span className={myCn('profile__info-span', {'profile__info-span_error': !infoMessage})}>{infoMessage ? infoMessage : errors.email}</span>
             </div>
             <button className='profile__edit' type="submit" disabled={!formValid || !isDataChanged || isLoading}

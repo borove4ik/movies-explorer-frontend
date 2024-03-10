@@ -4,7 +4,7 @@ import likeButton from "../../../images/like.svg"
 import deleteButton from "../../../images/delete_movie.svg"
 import likedIcon from "../../../images/like-active.svg"
 import mainApi from "../../../utils/MainApi";
-import baseUrls from "../../../utils/urls";
+import BaseUrls from "../../../utils/urls";
 import {useLocation} from "react-router-dom";
 
 
@@ -24,51 +24,53 @@ const MoviesCard = ({movie, imageLink, title, savedMovies, setSavedMovies, altTe
     }, [isCardSaved])
 
     const saveMovie = async (e) => {
+
         e.preventDefault()
         try {
             const isSaved = savedMovies.some((savedMovie) => savedMovie.movieId === movie.id);
+            console.log('save', isSaved)
 
             if (!isSaved) {
-                await mainApi.createMovie(
+            
+                const createdMovie = await mainApi.createMovie(
                     movie.country,
                     movie.director,
                     movie.duration,
                     movie.year,
                     movie.description,
-                    `${baseUrls.imageLink}${movie.image.url}`,
+                    `${BaseUrls.imageLink}${movie.image.url}`,
                     movie.trailerLink,
                     movie.nameRU,
                     movie.nameEN,
-                    `${baseUrls.imageLink}${movie.image.formats.thumbnail.url}`,
+                    `${BaseUrls.imageLink}${movie.image.formats.thumbnail.url}`,
                     movie.id
                 );
 
-                const movies = await mainApi.getMovies();
 
-                setSavedMovies(movies);
+                setSavedMovies(prev => [...prev, createdMovie]);
 
-                await setIsCardSaved(true);
+                setIsCardSaved(true);
             }
         } catch (err) {
             console.log(`Ошибка сохранения фильма: ${err}`);
         }
     }
 
+
     const deleteMovie = async (e) => {
         e.preventDefault()
-
+        
         const savedMovie = savedMovies.find((item) => {
           const id = location.pathname.includes('/saved-movies') ? movie.movieId : movie.id;
             return item.movieId === id
         })
 
+
         try {
             if (savedMovie && savedMovie._id) {
                 await mainApi.deleteMovie(savedMovie._id);
     
-                const movies = await mainApi.getMovies();
-
-                setSavedMovies(movies);
+                setSavedMovies(prev => prev.filter(item => item._id !== savedMovie._id));
 
                 setIsCardSaved(false);
             }

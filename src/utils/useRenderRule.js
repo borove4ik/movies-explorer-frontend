@@ -1,5 +1,5 @@
 import React, { useCallback, useState, useEffect } from "react";
-import cardConfig from "./cardConfig";
+import CardConfig from "./CardConfig";
 
 const useRenderRule = () => {
     const [moviesRenderRule, setMoviesRenderRule] = useState({
@@ -8,17 +8,17 @@ const useRenderRule = () => {
 
     const handleResolutionChange = useCallback(() => {
         const windowResolution = window.innerWidth;
-        if(windowResolution > cardConfig.windowResolution.tablet) {
+        if(windowResolution > CardConfig.windowResolution.tablet) {
             setMoviesRenderRule((prev) => ({
                 ...prev,  
                 cardsTotal: 12
             }))
-        } else if (windowResolution<=cardConfig.windowResolution.tablet&&windowResolution>cardConfig.windowResolution.mobile){
+        } else if (windowResolution<=CardConfig.windowResolution.tablet&&windowResolution>CardConfig.windowResolution.mobile){
           setMoviesRenderRule((prev) => ({
             ...prev,  
             cardsTotal: 8
           }))
-        } else if(windowResolution<=cardConfig.windowResolution.mobile) {
+        } else if(windowResolution<=CardConfig.windowResolution.mobile) {
           setMoviesRenderRule((prev) => ({
             ...prev,  
             cardsTotal: 5

@@ -6,12 +6,17 @@ import LoadMoreButton from "./LoadMoreButton/LoadMoreButton";
 import Footer from "../Footer/Footer"
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import useRenderRule from "../../utils/useRenderRule";
-import cardConfig from "../../utils/cardConfig";
+import CardConfig from "../../utils/CardConfig";
+import { useNavigate } from "react-router-dom";
+
 
 const Movies = ({savedMovies, setSavedMovies, authorised}) => {
   const [moviesToRender, setMoviesToRender] = React.useState([])
   const [isLoading, setIsLoading] = React.useState(false)
   const [movies, setMovies] = React.useState([])
+  const navigate = useNavigate()
+  
+
  
   const [errorMessage, setErrorMessage] = React.useState('')
 
@@ -20,12 +25,12 @@ const Movies = ({savedMovies, setSavedMovies, authorised}) => {
 
     const handleShowMore = () => {
       const windowSize = window.innerWidth;
-      if(windowSize > cardConfig.windowResolution.tablet) {
+      if(windowSize > CardConfig.windowResolution.tablet) {
         setMoviesRenderRule({
           ...moviesRenderRule,
           cardsTotal: moviesRenderRule.cardsTotal + 3
         })
-      } else if(windowSize <= cardConfig.windowResolution.tablet) {
+      } else if(windowSize <= CardConfig.windowResolution.tablet) {
         setMoviesRenderRule({
           ...moviesRenderRule,
           cardsTotal: moviesRenderRule.cardsTotal + 2
@@ -36,6 +41,10 @@ const Movies = ({savedMovies, setSavedMovies, authorised}) => {
 
     return {moviesRenderRule, handleShowMore}
 }
+
+  if (!authorised) {
+          navigate('/')
+        }
 
   const { moviesRenderRule, handleShowMore } = useMovies();
   

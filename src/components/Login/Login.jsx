@@ -7,15 +7,22 @@ import useFormValidation from "../../hooks/useFormValidation";
 import mainApi from "../../utils/MainApi";
 import { useNavigate } from "react-router-dom";
 
-const Login = ({setAuthorised}) => {
+const Login = ({setAuthorised, authorised}) => {
 
   const navigate=useNavigate()
   const [loginErr, setLoginErr] = React.useState('')
+  const [isUploading, setIsUploading] = React.useState(false);
+  
   
   const { formValid, values, errors, resetForm, handleInputChange } = useFormValidation();
 
+  if (authorised) {
+    navigate('/')
+  }
+
   const handleLogin = async (email, password) => {
     setLoginErr('');
+    setIsUploading(true)
     try {
       if(!email || !password){
         return
@@ -30,6 +37,7 @@ const Login = ({setAuthorised}) => {
     catch(err) {
       setLoginErr(`${err}`)
     }
+    setIsUploading(false)
   }
 
   const handleChangeWithLoading = (e) => {
@@ -48,10 +56,11 @@ const Login = ({setAuthorised}) => {
         <h1 className="login__title">Рады видеть!</h1>
         <form onSubmit={handleSubmit}>
           <div className="login__form">
-            <InputWithLabel values={values} errors={errors.email} handleChangeWithLoading={handleChangeWithLoading} name='email' label='E-mail' />
-            <InputWithLabel values={values} errors={errors.password} handleChangeWithLoading={handleChangeWithLoading}name='password'  type='password' label='Пароль' />
+            <InputWithLabel disabled={isUploading} values={values} errors={errors.email} handleChangeWithLoading={handleChangeWithLoading} name='email' label='E-mail' />
+            <InputWithLabel disabled={isUploading} values={values} errors={errors.password} handleChangeWithLoading={handleChangeWithLoading} name='password'  type='password' label='Пароль' />
+            <span className="form-error-message">{loginErr}</span>
           </div>
-          <SubmitButton text='Войти' />
+          <SubmitButton disabled={isUploading} text='Войти' />
           <div className="login__sign-up-wrapper">
             <p className="login__text">Ещё не зарегистрированы?</p>
             <a href="/signup" className="login__sign-up-button">Регистрация</a>

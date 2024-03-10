@@ -2,7 +2,7 @@ import React from "react"
 import './InputWithLabel.css'
 
 
-const InputWithLabel= ({name, label, values, errors, regErr, handleChangeWithLoading, type='text'}) => {
+const InputWithLabel= ({name, label, values, errors, regErr, handleChangeWithLoading, type='text', ...rest}) => {
     const [errMesage, setErrMesage]= React.useState('')
     React.useEffect(()=>{
       regErr ? setErrMesage(regErr) : setErrMesage(errors)
@@ -11,7 +11,7 @@ const InputWithLabel= ({name, label, values, errors, regErr, handleChangeWithLoa
     return  (
       <div className="input-with-label">
         <label htmlFor={name} className="input-with-label__name">{label}</label>
-        <input type={type} name={name} id={name}className="input-with-label__input" onChange={handleChangeWithLoading} required/>
+        <input type={type} name={name} id={name}className="input-with-label__input" onChange={handleChangeWithLoading} required {...rest}/>
         <span className="input-with-label__error-mesage">{errMesage}</span>
       </div>
     )
