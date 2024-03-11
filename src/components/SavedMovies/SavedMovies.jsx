@@ -1,41 +1,20 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import './SavedMovies.css'
-import Header from "../Header/Header";
-import SearchForm from "../Movies/SearchForm/SearchForm";
-import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
-import Footer from "../Footer/Footer";
-import useRenderRule from "../../utils/useRenderRule";
+import useRenderRule from "../../hooks/useRenderRule";
 import CardConfig from "../../utils/CardConfig";
-import { useNavigate } from "react-router-dom";
+import AuthRoute from "../AuthRoute/AuthRoute";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
+import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
+import SearchForm from "../Movies/SearchForm/SearchForm";
 
-const SavedMovies = ({authorised, savedMovies, setSavedMovies, isDataLoaded}) => {
-    const [moviesToRender, setMoviesToRender] = React.useState([])
-    const [isLoading, setIsLoading] = React.useState(false)
-    const navigate = useNavigate()
-    
+const SavedMovies = ({savedMovies, setSavedMovies}) => {
+    const localFoundMovies = localStorage.getItem('savedMoviesFound') ? JSON.parse(localStorage.getItem('savedMoviesFound')) : [];
 
-    const [errorMessage, setErrorMessage] = React.useState('');
-
-    useEffect(() => {
-        if (!isDataLoaded) {
-            const foundSavedMovies = localStorage.getItem('savedMoviesFound') ? JSON.parse(localStorage.getItem('savedMoviesFound')) : null;
-            const savedMoviesData = localStorage.getItem('savedMovies') ? JSON.parse(localStorage.getItem('savedMovies')) : null;
-
-            if (foundSavedMovies) {
-                setSavedMovies(foundSavedMovies);
-                return;
-            }
-
-            if (savedMoviesData) {
-                setSavedMovies(savedMoviesData);
-                return;
-            }
-        }
-    }, [isDataLoaded]);
-
-     if (!authorised) {
-          navigate('/')
-        }
+    const [moviesToRender, setMoviesToRender] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [foundMovies, setFoundMovies] = useState(localFoundMovies);
 
     const useMovies = () => {
         const {moviesRenderRule, setMoviesRenderRule} = useRenderRule();
@@ -44,40 +23,44 @@ const SavedMovies = ({authorised, savedMovies, setSavedMovies, isDataLoaded}) =>
             const windowSize = window.innerWidth;
             if (windowSize > CardConfig.windowResolution.tablet) {
                 setMoviesRenderRule({
-                    ...moviesRenderRule,
-                    cardsTotal: moviesRenderRule.cardsTotal + 3
+                    ...moviesRenderRule, cardsTotal: moviesRenderRule.cardsTotal + 3
                 })
             } else if (windowSize <= CardConfig.windowResolution.tablet) {
                 setMoviesRenderRule({
-                    ...moviesRenderRule,
-                    cardsTotal: moviesRenderRule.cardsTotal + 2
+                    ...moviesRenderRule, cardsTotal: moviesRenderRule.cardsTotal + 2
                 })
             }
-
         }
 
         return {moviesRenderRule, handleShowMore}
     }
 
-    const {moviesRenderRule, handleShowMore} = useMovies();
+    const {moviesRenderRule} = useMovies();
 
     useEffect(() => {
-        setMoviesToRender(savedMovies.slice(0, moviesRenderRule.cardsTotal))
-    }, [moviesRenderRule.cardsTotal, savedMovies])
-
+        setMoviesToRender((foundMovies.length > 0 ? foundMovies : savedMovies).slice(0, moviesRenderRule.cardsTotal))
+    }, [moviesRenderRule.cardsTotal, savedMovies, foundMovies]);
 
     return (
-      <>
-        <Header authorised={authorised}/>
+      <AuthRoute>
+        <Header/>
         <main className="movies">
-          <SearchForm movies={savedMovies} setMovies={setSavedMovies} setErrorMessage={setErrorMessage}
+          <SearchForm movies={savedMovies} setSavedMovies={setSavedMovies} foundMovies={foundMovies}
+            savedMovies={savedMovies}
+            setFoundMovies={setFoundMovies}
+            setMovies={setSavedMovies} setErrorMessage={setErrorMessage}
             setIsLoading={setIsLoading}/>
-          <MoviesCardList moviesToRender={moviesToRender} errorMessage={errorMessage} isLoading={isLoading}
-            savedMovies={savedMovies} setSavedMovies={setSavedMovies}/>
+          <MoviesCardList
+            moviesToRender={moviesToRender}
+            errorMessage={errorMessage}
+            isLoading={isLoading}
+            savedMovies={savedMovies}
+            foundMovies={foundMovies}
+            setFoundMovies={setFoundMovies}
+            setSavedMovies={setSavedMovies}/>
         </main>
         <Footer/>
-      </>
-    )
+      </AuthRoute>)
 }
 
 export default SavedMovies

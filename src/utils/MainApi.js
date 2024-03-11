@@ -1,9 +1,9 @@
-import BaseUrls from './urls'
 import getCookie from './getCookie'
 import setCookie from './setCookie'
+import BaseUrls from './urls'
 
 class MainApi {
-    constructor( BaseUrls ) {
+    constructor(BaseUrls) {
         this._url = BaseUrls;
     }
 
@@ -15,60 +15,46 @@ class MainApi {
     }
 
 
-    register({ name, email, password }) {
+    register({name, email, password}) {
         return fetch(`${this._url}/signup`, {
             method: 'POST',
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ name, email, password }),
+            body: JSON.stringify({name, email, password}),
         })
-        .then(this._responseHandler)
-        .then(res => {
-            setCookie('jwt', res.token, 7);
-            return res;
-        })
-        .catch(error => {
-            return Promise.reject(`Ошибка: ${error}`);
-        })
+            .then(this._responseHandler)
+            .then(res => {
+                setCookie('jwt', res.token, 7);
+                return res;
+            })
+            .catch(error => {
+                return Promise.reject(`Ошибка: ${error}`);
+            })
     }
 
     login = ({email, password}) => {
         return fetch(`${this._url}/signin`, {
-          method: "POST",
-          credentials: 'include',
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({email, password}),
+            method: "POST",
+            credentials: 'include',
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({email, password}),
         })
-        .then(this._responseHandler)
-        .then(res => {
-            setCookie('jwt', res.token, 7)
-            return res;
-        })
-        .catch(error => {
-            return Promise.reject(`Ошибка: ${error}`);
-        })
+            .then(this._responseHandler)
+            .then(res => {
+                setCookie('jwt', res.token, 7)
+                return res;
+            })
+            .catch(error => {
+                return Promise.reject(`Ошибка: ${error}`);
+            })
     }
 
-    checkToken = () => {
-        const token = getCookie('jwt');
-        
-        return fetch(`${this._url}/users/me`, {
-          method: "GET",
-          credentials: 'include',
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`
-          },
-        }).then(this._responseHandler);
-      };
-
-      getMe() {
+    getMe() {
         const token = getCookie('jwt');
 
         return fetch(`${this._url}/users/me`, {
@@ -80,7 +66,7 @@ class MainApi {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then(this._responseHandler);
+            .then(this._responseHandler);
     }
 
     updateUser(inputValues) {
@@ -94,12 +80,12 @@ class MainApi {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 name: inputValues.name,
                 email: inputValues.email
             })
         })
-        .then(this._responseHandler)
+            .then(this._responseHandler)
     }
 
     signOut() {
@@ -110,7 +96,7 @@ class MainApi {
                 'Content-Type': 'application/json'
             },
         })
-        .then(this._responseHandler)
+            .then(this._responseHandler)
     }
 
     getMovies() {
@@ -125,7 +111,7 @@ class MainApi {
                 Authorization: `Bearer ${token}`
             },
         })
-        .then(this._responseHandler)
+            .then(this._responseHandler)
     }
 
     createMovie(
@@ -152,26 +138,28 @@ class MainApi {
                 Authorization: `Bearer ${token}`
             },
             body: JSON.stringify(
-                {country,
-                director,
-                duration,
-                year,
-                description,
-                image,
-                trailerLink,
-                nameRU,
-                nameEN,
-                thumbnail,
-                movieId}
+                {
+                    country,
+                    director,
+                    duration,
+                    year,
+                    description,
+                    image,
+                    trailerLink,
+                    nameRU,
+                    nameEN,
+                    thumbnail,
+                    movieId
+                }
             )
         })
-        .then(this._responseHandler)
+            .then(this._responseHandler)
     }
 
-    deleteMovie (movieId) {
+    deleteMovie(movieId) {
         const token = getCookie('jwt');
 
-        return fetch(`${this._url}/movies/${movieId}` , {
+        return fetch(`${this._url}/movies/${movieId}`, {
             method: "DELETE",
             credentials: 'include',
             headers: {
@@ -180,9 +168,8 @@ class MainApi {
                 Authorization: `Bearer ${token}`
             }
         })
-        .then(this._responseHandler);
+            .then(this._responseHandler);
     }
-      
 }
 
 const mainApi = new MainApi(BaseUrls.backendUrl)

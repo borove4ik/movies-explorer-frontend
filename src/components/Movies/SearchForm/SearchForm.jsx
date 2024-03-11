@@ -1,11 +1,19 @@
 import React, {useEffect, useState} from "react";
 import './SearchForm.css';
-import searchIcon from "../../../images/search.svg"
 import {useLocation} from "react-router-dom";
-import moviesApi from "../../../utils/MoviesApi";
+import searchIcon from "../../../images/search.svg"
 import CardConfig from "../../../utils/CardConfig"
+import moviesApi from "../../../utils/MoviesApi";
 
-const SearchForm = ({setMovies, setIsLoading, setErrorMessage}) => {
+const SearchForm = ({
+                        setMovies,
+                        setIsLoading,
+                        setErrorMessage,
+                        foundMovies,
+                        setFoundMovies,
+                        setSavedMovies,
+                        savedMovies
+                    }) => {
     const location = useLocation();
     const isMoviesView = location.pathname === '/movies';
     const moviesKey = isMoviesView ? 'allMovies' : 'savedMovies';
@@ -13,7 +21,7 @@ const SearchForm = ({setMovies, setIsLoading, setErrorMessage}) => {
 
     const defaultSearch = localStorage.getItem(moviesKey + 'SearchQuery') ? localStorage.getItem(moviesKey + 'SearchQuery') : '';
 
-    const [checked, setChecked] = React.useState(isDefaultChecked);
+    const [checked, setChecked] = useState(isDefaultChecked);
     const [search, setSearch] = useState(defaultSearch);
 
     const findShortFilms = (foundMovies) => {
@@ -57,9 +65,7 @@ const SearchForm = ({setMovies, setIsLoading, setErrorMessage}) => {
 
         if (searchValue) {
             const searchQueryModified = search.toLowerCase();
-
-
-            const foundMovies = foundMoviesLocal.filter(movie => {
+            const foundMoviesFromSearch = foundMoviesLocal.filter(movie => {
                     return (movie.nameRU + movie.nameEN)
                         .toLowerCase()
                         .trim()
@@ -67,35 +73,40 @@ const SearchForm = ({setMovies, setIsLoading, setErrorMessage}) => {
                 }
             )
 
-            if (foundMovies.length === 0) {
+            if (foundMoviesFromSearch.length === 0) {
                 setErrorMessage('Ничего не найдено');
+                setFoundMovies([]);
                 setIsLoading(false);
                 return;
             }
 
-            if (isChecked && findShortFilms(foundMovies)) {
-                localStorage.setItem(moviesKey + 'Found', JSON.stringify(findShortFilms(foundMovies)))
+            if (isChecked && findShortFilms(foundMoviesFromSearch)) {
+                localStorage.setItem(moviesKey + 'Found', JSON.stringify(findShortFilms(foundMoviesFromSearch)));
+                setFoundMovies(findShortFilms(foundMoviesFromSearch));
                 return;
             }
 
-            localStorage.setItem(moviesKey + 'Found', JSON.stringify(foundMovies))
+            localStorage.setItem(moviesKey + 'Found', JSON.stringify(foundMoviesFromSearch));
 
+            setFoundMovies(foundMoviesFromSearch);
             setMovies(foundMovies);
             setIsLoading(false);
             return;
-        }
+        } else {
+            setFoundMovies([]);
+            localStorage.setItem(moviesKey + 'Found', JSON.stringify([]))
 
-        if (location.pathname === '/saved-movies' && !searchValue && foundMoviesLocal.length !== 0) {
-            if (isChecked && findShortFilms(foundMoviesLocal)) {
-                localStorage.setItem(moviesKey + 'Found', JSON.stringify(findShortFilms(foundMoviesLocal)))
+            if (isChecked && !isMoviesView && findShortFilms(savedMovies)) {
+                setFoundMovies(findShortFilms(savedMovies));
                 return;
             }
 
-            localStorage.setItem(moviesKey + 'Found', JSON.stringify(foundMoviesLocal))
-
-            setMovies(foundMoviesLocal);
-            setIsLoading(false);
-            return;
+            if (location.pathname === '/saved-movies') {
+                const savedMovies = localStorage.getItem('savedMovies') ? JSON.parse(localStorage.getItem('savedMovies')) : []
+                setSavedMovies(savedMovies);
+                setIsLoading(false);
+                return;
+            }
         }
 
         setIsLoading(false);
@@ -113,6 +124,14 @@ const SearchForm = ({setMovies, setIsLoading, setErrorMessage}) => {
         setSearch(e.target.value);
         localStorage.setItem(moviesKey + 'SearchQuery', e.target.value);
     }
+
+    useEffect(() => {
+        if (checked && location.pathname === '/saved-movies') {
+            if (findShortFilms(savedMovies)) {
+                setFoundMovies(findShortFilms(savedMovies));
+            }
+        }
+    }, []);
 
     return (
       <search className="search">

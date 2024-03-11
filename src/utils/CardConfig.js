@@ -13,4 +13,3 @@ const CardConfig = {
 
 export default CardConfig
 
-// lll

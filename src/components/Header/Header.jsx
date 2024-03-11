@@ -1,33 +1,40 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import './Header.css';
-import { useNavigate } from "react-router-dom";
-import Navigation from "../Navigation/Navigation";
+import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../App/App";
+import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import MenuButton from "../BurgerMenu/MenuButton/MenuButton";
 import HomeLinkLogo from "../HomeLinkLogo/HomeLinkLogo";
-import BurgerMenu from "../BurgerMenu/BurgerMenu";
+import Navigation from "../Navigation/Navigation";
 
-const Header = ({authorised}) => {
-  const navigate = useNavigate();
-  const goHome=()=>{navigate('/')}
-  const toRegistration = () => {navigate('/signup')}
-  const toLogin = () => {navigate('/signin')}
-  const [ openMenu, setOpenMenu ] = React.useState(false)
-  const toggleMenu = () => {
-    setOpenMenu(!openMenu)
-  }
+const Header = () => {
+    const authorized = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const toRegistration = () => {
+        navigate('/signup')
+    }
+    const toLogin = () => {
+        navigate('/signin')
+    }
+    const [openMenu, setOpenMenu] = useState(false)
+    const toggleMenu = () => {
+        setOpenMenu(!openMenu)
+    }
     return (
       <header className="header">
-        <HomeLinkLogo />
-        {authorised&&<BurgerMenu opened={openMenu} closeMenu={toggleMenu}/>}
-        {!authorised&&<nav className="header__button-wrapper">
-          <button className="header__button header__registration"  onClick={toRegistration} type="button">Регистрация</button>
-          <button className="header__button header__button-green"  onClick={toLogin} type="button">Войти</button>
+        <HomeLinkLogo/>
+        {authorized && <BurgerMenu opened={openMenu} closeMenu={toggleMenu}/>}
+        {!authorized && <nav className="header__button-wrapper">
+          <button className="header__button header__registration" onClick={toRegistration}
+            type="button">Регистрация
+          </button>
+          <button className="header__button header__button-green" onClick={toLogin} type="button">Войти</button>
         </nav>}
-        {authorised&&<Navigation/>}
-        {authorised&&<MenuButton clickFunction={toggleMenu} />}
-
+        {authorized && <Navigation/>}
+        {authorized && <MenuButton clickFunction={toggleMenu}/>}
       </header>
-      )
+    )
 }
 
 export default Header
