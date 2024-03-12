@@ -46,6 +46,8 @@ class MainApi {
         })
             .then(this._responseHandler)
             .then(res => {
+                console.log(res.token)
+
                 setCookie('jwt', res.token, 7)
                 return res;
             })

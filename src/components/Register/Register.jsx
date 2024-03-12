@@ -12,7 +12,7 @@ const Register = ({setAuthorised}) => {
     const [regErr, setRegErr] = useState('')
     const {values, errors, handleInputChange} = useFormValidation();
     const [isUploading, setIsUploading] = useState(false);
-
+  console.log(values)
     const handleRegister = async (name, email, password) => {
         setRegErr('');
         setIsUploading(true);
@@ -22,7 +22,7 @@ const Register = ({setAuthorised}) => {
                 return;
             }
 
-            const response = await mainApi.register({email: email, password: password});
+            const response = await mainApi.register({name: name, email: email, password: password});
 
             if (!localStorage.getItem('authorised')) {
                 localStorage.setItem('authorised', true)
