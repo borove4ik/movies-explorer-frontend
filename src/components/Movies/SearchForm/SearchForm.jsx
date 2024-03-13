@@ -12,7 +12,8 @@ const SearchForm = ({
                         foundMovies,
                         setFoundMovies,
                         setSavedMovies,
-                        savedMovies
+                        savedMovies,
+                        resetMovies
                     }) => {
     const location = useLocation();
     const isMoviesView = location.pathname === '/movies';
@@ -34,7 +35,13 @@ const SearchForm = ({
             setIsLoading(false);
             return false;
         } else {
-            setMovies(resultMovies);
+            if (location.pathname === '/saved-movies')  {
+                localStorage.setItem(moviesKey + 'Found', JSON.stringify(resultMovies));
+
+                setSavedMovies(resultMovies);
+            } else {
+                setMovies(resultMovies);
+            }
             setIsLoading(false);
             return resultMovies;
         }
@@ -46,6 +53,7 @@ const SearchForm = ({
         }
 
         const searchValue = search.trim();
+        resetMovies?.()
 
         if (!localStorage.getItem(moviesKey)) {
             try {
@@ -80,16 +88,24 @@ const SearchForm = ({
                 return;
             }
 
+            
+
             if (isChecked && findShortFilms(foundMoviesFromSearch)) {
                 localStorage.setItem(moviesKey + 'Found', JSON.stringify(findShortFilms(foundMoviesFromSearch)));
+
                 setFoundMovies(findShortFilms(foundMoviesFromSearch));
                 return;
             }
 
             localStorage.setItem(moviesKey + 'Found', JSON.stringify(foundMoviesFromSearch));
 
+
+            if (location.pathname === '/saved-movies')  {
+                setSavedMovies(foundMovies);
+            } else {
+                setMovies(foundMovies);
+            }
             setFoundMovies(foundMoviesFromSearch);
-            setMovies(foundMovies);
             setIsLoading(false);
             return;
         } else {
@@ -97,6 +113,7 @@ const SearchForm = ({
             localStorage.setItem(moviesKey + 'Found', JSON.stringify([]))
 
             if (isChecked && !isMoviesView && findShortFilms(savedMovies)) {
+
                 setFoundMovies(findShortFilms(savedMovies));
                 return;
             }

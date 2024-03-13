@@ -2,7 +2,7 @@ import useRenderRule from "../hooks/useRenderRule";
 import CardConfig from "../utils/CardConfig";
 
 const useMovies = () => {
-    const {moviesRenderRule, setMoviesRenderRule} = useRenderRule();
+    const {moviesRenderRule, setMoviesRenderRule, resetMovies} = useRenderRule();
 
     const handleShowMore = () => {
         const windowSize = window.innerWidth;
@@ -22,7 +22,7 @@ const useMovies = () => {
         }
     }
 
-    return {moviesRenderRule, handleShowMore}
+    return {moviesRenderRule, handleShowMore, resetMovies}
 }
 
 export default useMovies;

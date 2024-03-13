@@ -16,7 +16,7 @@ const Movies = ({savedMovies, setSavedMovies, isDataLoaded}) => {
     const [movies, setMovies] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
     const [foundMovies, setFoundMovies] = useState(localFoundMovies);
-    const {moviesRenderRule, handleShowMore} = useMovies();
+    const {moviesRenderRule, handleShowMore, resetMovies} = useMovies();
 
     useEffect(() => {
         setMoviesToRender((foundMovies.length > 0 ? foundMovies : movies).slice(0, moviesRenderRule.cardsTotal))
@@ -30,7 +30,9 @@ const Movies = ({savedMovies, setSavedMovies, isDataLoaded}) => {
             savedMovies={savedMovies}
             setIsLoading={setIsLoading} foundMovies={foundMovies}
             setFoundMovies={setFoundMovies}
-            setErrorMessage={setErrorMessage}/>
+            setErrorMessage={setErrorMessage}
+            resetMovies={resetMovies}
+            />
           <MoviesCardList savedMovies={savedMovies} setSavedMovies={setSavedMovies}
             setFoundMovies={setFoundMovies} isDataLoaded={isDataLoaded}
             foundMovies={foundMovies}

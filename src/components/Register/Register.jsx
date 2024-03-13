@@ -12,7 +12,6 @@ const Register = ({setAuthorised}) => {
     const [regErr, setRegErr] = useState('')
     const {values, errors, handleInputChange} = useFormValidation();
     const [isUploading, setIsUploading] = useState(false);
-  console.log(values)
     const handleRegister = async (name, email, password) => {
         setRegErr('');
         setIsUploading(true);

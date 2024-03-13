@@ -19,6 +19,7 @@ const MoviesCardList = ({
                         }) => {
     const location = useLocation();
 
+
     if (errorMessage !== '') {
         return <h2 className="error-message">{errorMessage}</h2>;
     } else {

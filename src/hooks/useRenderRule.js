@@ -26,6 +26,23 @@ const useRenderRule = () => {
         }
     }, [])
 
+    const resetMovies = useCallback(() => {
+        const windowResolution = window.innerWidth;
+        if (windowResolution > CardConfig.windowResolution.tablet) {
+            setMoviesRenderRule((prev) => ({
+                cardsTotal: 12
+            }))
+        } else if (windowResolution <= CardConfig.windowResolution.tablet && windowResolution > CardConfig.windowResolution.mobile) {
+            setMoviesRenderRule((prev) => ({
+                cardsTotal: 8
+            }))
+        } else if (windowResolution <= CardConfig.windowResolution.mobile) {
+            setMoviesRenderRule((prev) => ({
+                cardsTotal: 5
+            }))
+        }
+    }, []);
+
     useEffect(() => {
         handleResolutionChange()
         window.addEventListener('resize', handleResolutionChange);
@@ -35,7 +52,7 @@ const useRenderRule = () => {
         };
     }, [handleResolutionChange])
 
-    return {moviesRenderRule, setMoviesRenderRule};
+    return {moviesRenderRule, setMoviesRenderRule, resetMovies};
 }
 
 export default useRenderRule
