@@ -11,46 +11,37 @@ const MoviesCardList = ({
                             moviesToRender,
                             isLoading,
                             errorMessage,
-                            isDataLoaded,
                             savedMovies,
-                            foundMovies,
-                            setSavedMovies,
-                            setFoundMovies
                         }) => {
     const location = useLocation();
 
-
     if (errorMessage !== '') {
-        return <h2 className="error-message">{errorMessage}</h2>;
-    } else {
-        return (
-          <>
-            {isLoading ? (
-              <Preloader/>
-                ) : (
-                  <section className="list">
-                    {
-                            moviesToRender.map((movie, index) => {
-                                return (
-                                  <MoviesCard
-                                    savedMovies={savedMovies}
-                                    setSavedMovies={setSavedMovies}
-                                    isDataLoaded={isDataLoaded}
-                                    setFoundMovies={setFoundMovies}
-                                    foundMovies={foundMovies}
-                                    movie={movie}
-                                    imageLink={location.pathname === '/movies' ? `${BaseUrls.imageLink}${movie.image.url}` : movie.image}
-                                    title={movie.nameRU}
-                                    duration={movie.duration}
-                                    altText={movie.name}
-                                    key={`${movie.id}_${index}`}/>)
-                            })}
-                  </section>
-                )
-                }
-          </>
-        )
-    }
+      return <h2 className="error-message">{errorMessage}</h2>;
+    } 
+
+    return (
+      <>
+        {isLoading ? (
+          <Preloader/>
+            ) : (
+              <section className="list">
+                {
+                        moviesToRender.map((movie, index) => {
+                          const isLiked = savedMovies.some(saved => saved.movieId === movie.id)
+                         
+                            return (
+                              <MoviesCard
+                                savedMovies={savedMovies}
+                                movie={movie}
+                                isLiked={isLiked}
+                                key={`${movie.id}_${index}`}
+                              />)
+                        })}
+              </section>
+            )
+            }
+      </>
+    )
 
 }
 

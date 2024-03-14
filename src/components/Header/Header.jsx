@@ -31,7 +31,7 @@ const Header = () => {
           </button>
           <button className="header__button header__button-green" onClick={toLogin} type="button">Войти</button>
         </nav>}
-        {authorized && <Navigation/>}
+        {authorized && <Navigation authorized={authorized}/>}
         {authorized && <MenuButton clickFunction={toggleMenu}/>}
       </header>
     )

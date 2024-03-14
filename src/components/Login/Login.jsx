@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './Login.css';
 import {useNavigate} from "react-router-dom";
 import useFormValidation from "../../hooks/useFormValidation";
@@ -7,8 +7,11 @@ import HomeLinkLogo from "../HomeLinkLogo/HomeLinkLogo";
 import InputWithLabel from "../InputWithLabel/InputWithLabel";
 import SubmitButton from "../SubmitButton/SubmitButton";
 
-const Login = ({setAuthorised}) => {
-    const navigate = useNavigate()
+const Login = ({setAuthorised, authorised}) => {
+  const navigate = useNavigate()
+    useEffect(()=>{
+      authorised && navigate('/')
+    })
     const [loginErr, setLoginErr] = useState('')
     const [isUploading, setIsUploading] = useState(false);
     const {values, errors, handleInputChange} = useFormValidation();

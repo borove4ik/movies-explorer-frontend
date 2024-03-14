@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import './SavedMovies.css'
-import useRenderRule from "../../hooks/useRenderRule";
 import CardConfig from "../../utils/CardConfig";
 import AuthRoute from "../AuthRoute/AuthRoute";
 import Footer from "../Footer/Footer";
@@ -8,51 +7,55 @@ import Header from "../Header/Header";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import SearchForm from "../Movies/SearchForm/SearchForm";
 import { useLocation } from 'react-router-dom';
-
-const SavedMovies = ({savedMovies, setSavedMovies}) => {
-    const location = useLocation();
-    const isMoviesView = location.pathname === '/movies';
-    const moviesKey = 'savedMovies';
+import { useFiltersContext } from "../App/App";
 
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [foundMovies, setFoundMovies] = useState(savedMovies);
+const SavedMovies = ({savedMovies, isLoading}) => {
+  const location = useLocation();
+  const locationType = location.pathname === '/movies' ? 'movies' : 'saved-movies';
 
-    React.useEffect(() => {
-        if (JSON.parse(localStorage.getItem(moviesKey + 'Found')).length > 0) {
-            const localFoundMovies = JSON.parse(localStorage.getItem(moviesKey + 'Found') || '');
-            setFoundMovies(localFoundMovies)
+  const { filters, getDataError } = useFiltersContext();
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const [searchTouched, setSearchTouched] = React.useState(false);
 
-        } else {
-            setFoundMovies(savedMovies)
+  const { checked, searchValue } = filters[locationType];
+
+
+  const filteredSavedMovies = savedMovies.filter(movie => {
+    const searchResult = (movie.nameRU + movie.nameEN).toLowerCase().trim().includes(searchValue.toLowerCase().trim())
+    if (checked) {
+      return movie.duration <= CardConfig.shortMovieLength && searchResult;
+    }
+
+    return searchResult;
+  })
+
+  
+  const wrongSearch = !isLoading && searchValue.length > 0 && filteredSavedMovies.length === 0;
+  const emptySearch = !isLoading && searchValue.length === 0 && searchTouched;
+
+  React.useEffect(() => {
+    if (wrongSearch) {
+      setErrorMessage('Ничего не найдено')
+    } 
+    if (emptySearch) {
+      setErrorMessage('Поле обязательно для заполнения')
+    } 
+    if (getDataError.length !== 0) {
+          setErrorMessage(getDataError)
         }
-        setErrorMessage('')
-
-    }, [savedMovies]);
-
+  }, [wrongSearch, emptySearch]);
 
     return (
       <AuthRoute>
         <Header/>
         <main className="movies">
-          <SearchForm setSavedMovies={setFoundMovies} foundMovies={foundMovies}
-            savedMovies={savedMovies}
-            setFoundMovies={setFoundMovies}
-            setErrorMessage={setErrorMessage}
-            setIsLoading={setIsLoading}
-            />
-          <MoviesCardList
-            moviesToRender={foundMovies}
-            errorMessage={errorMessage}
-            isLoading={isLoading}
-            savedMovies={savedMovies}
-            foundMovies={foundMovies}
-            setFoundMovies={setFoundMovies}
-            setSavedMovies={setSavedMovies}/>
+          <SearchForm setErrorMessage={setErrorMessage} setSearchTouched={setSearchTouched} />
+          <MoviesCardList isLoading={isLoading} errorMessage={errorMessage} moviesToRender={filteredSavedMovies} savedMovies={savedMovies} />
         </main>
         <Footer/>
       </AuthRoute>)
 }
 
 export default SavedMovies
+

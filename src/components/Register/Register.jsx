@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useNavigate} from 'react-router-dom';
 import useFormValidation from "../../hooks/useFormValidation"
 import mainApi from "../../utils/MainApi";
@@ -7,8 +7,11 @@ import InputWithLabel from "../InputWithLabel/InputWithLabel";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import './Register.css'
 
-const Register = ({setAuthorised}) => {
+const Register = ({setAuthorised, authorised}) => {
     const navigate = useNavigate()
+        useEffect(()=>{
+          authorised && navigate('/')
+        })
     const [regErr, setRegErr] = useState('')
     const {values, errors, handleInputChange} = useFormValidation();
     const [isUploading, setIsUploading] = useState(false);
@@ -52,7 +55,7 @@ const Register = ({setAuthorised}) => {
       <main className="register">
         <HomeLinkLogo/>
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <div className="register__form">
             <InputWithLabel disabled={isUploading} values={values} errors={errors.name}
               handleChangeWithLoading={handleChangeWithLoading} name='name' label='Имя'/>
