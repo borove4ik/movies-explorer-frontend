@@ -1,21 +1,72 @@
-import React from "react";
-import './Register.css'
+import React, {useState, useEffect} from "react";
+import {useNavigate} from 'react-router-dom';
+import useFormValidation from "../../hooks/useFormValidation"
+import mainApi from "../../utils/MainApi";
+import HomeLinkLogo from "../HomeLinkLogo/HomeLinkLogo";
 import InputWithLabel from "../InputWithLabel/InputWithLabel";
 import SubmitButton from "../SubmitButton/SubmitButton";
-import HomeLinkLogo from "../HomeLinkLogo/HomeLinkLogo";
+import './Register.css'
 
-const Register = () => {
+const Register = ({setAuthorised, authorised}) => {
+    const navigate = useNavigate()
+        useEffect(()=>{
+          authorised && navigate('/')
+        })
+    const [regErr, setRegErr] = useState('')
+    const {values, errors, handleInputChange} = useFormValidation();
+    const [isUploading, setIsUploading] = useState(false);
+    const handleRegister = async (name, email, password) => {
+        setRegErr('');
+        setIsUploading(true);
+
+        try {
+            if (!name || !email || !password) {
+                return;
+            }
+
+            const response = await mainApi.register({name: name, email: email, password: password});
+
+            if (!localStorage.getItem('authorised')) {
+                localStorage.setItem('authorised', true)
+            }
+
+            setAuthorised(true);
+            response ? navigate('/movies') : console.log('ошибка во время обработки регистрации');
+        } catch (err) {
+            setRegErr(`${err}`);
+        }
+
+        setIsUploading(false);
+    }
+
+    const handleChangeWithLoading = (e) => {
+        handleInputChange(e);
+        if (regErr) {
+            setRegErr('');
+        }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleRegister(values.name, values.email, values.password)
+    }
+
     return (
       <main className="register">
-        <HomeLinkLogo />
+        <HomeLinkLogo/>
         <h1 className="register__title">Добро пожаловать!</h1>
-        <form >
+        <form onSubmit={handleSubmit} >
           <div className="register__form">
-            <InputWithLabel name='name' label='Имя' />
-            <InputWithLabel name='email' label='E-mail' />
-            <InputWithLabel name='password' label='Пароль' />
+            <InputWithLabel disabled={isUploading} values={values} errors={errors.name}
+              handleChangeWithLoading={handleChangeWithLoading} name='name' label='Имя'/>
+            <InputWithLabel disabled={isUploading} values={values} errors={errors.email}
+              handleChangeWithLoading={handleChangeWithLoading} name='email' label='E-mail'/>
+            <InputWithLabel disabled={isUploading} type="password" values={values} regErr={regErr}
+              errors={errors.password} handleChangeWithLoading={handleChangeWithLoading}
+              name='password' label='Пароль'/>
+            <span className="form-error-message">{regErr}</span>
           </div>
-          <SubmitButton text='Зарегистрироваться' />
+          <SubmitButton disabled={isUploading} text='Зарегистрироваться'/>
           <div className="register__sign-in-wrapper">
             <p className="register__text">Уже зарегистрированы?</p>
             <a href="/signin" className="register__sign-in-button">Войти</a>

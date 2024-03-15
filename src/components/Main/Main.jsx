@@ -1,29 +1,28 @@
 import React from "react";
-import Header from "../Header/Header"
-import AboutProject from '../Main/AboutProject/AboutProject';
-import Promo from '../Main/Promo/Promo';
-import NavTab from '../Main/NavTab/NavTab';
-import Techs from '../Main/Techs/Techs';
-import AboutMe from '../Main/AboutMe/AboutMe';
-import Portfolio from '../Main/Portfolio/Portfolio';
 import Footer from "../Footer/Footer";
-import { Routes, Route } from "react-router-dom";
+import Header from "../Header/Header"
+import AboutMe from '../Main/AboutMe/AboutMe';
+import AboutProject from '../Main/AboutProject/AboutProject';
+import NavTab from '../Main/NavTab/NavTab';
+import Portfolio from '../Main/Portfolio/Portfolio';
+import Promo from '../Main/Promo/Promo';
+import Techs from '../Main/Techs/Techs';
 
 const Main = () => {
-  return (
-    <>
-      <Header authorised={false}/> 
-      <main className="main">
-        <Promo />
-        <NavTab />
-        <AboutProject />
-        <Techs />
-        <AboutMe />
-        <Portfolio />
-      </main>
-      <Footer />
-    </>
-  )
+    return (
+      <>
+        <Header/>
+        <main className="main">
+          <Promo/>
+          <NavTab/>
+          <AboutProject/>
+          <Techs/>
+          <AboutMe/>
+          <Portfolio/>
+        </main>
+        <Footer/>
+      </>
+    )
 
 }
 
