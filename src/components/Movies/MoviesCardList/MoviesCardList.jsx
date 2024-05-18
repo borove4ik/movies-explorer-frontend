@@ -1,16 +1,48 @@
 import React from "react";
 import './MoviesCardList.css'
+import {useLocation} from "react-router-dom";
+import BaseUrls from "../../../utils/urls";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
+import Preloader from "../Preloader/Preloader";
 
-const MoviesCardList = ({moviesToRender}) => {
+
+const MoviesCardList = ({
+                            moviesToRender,
+                            isLoading,
+                            errorMessage,
+                            savedMovies,
+                        }) => {
+    const location = useLocation();
+
+    if (errorMessage !== '') {
+      return <h2 className="error-message">{errorMessage}</h2>;
+    } 
+
     return (
-      <section className="list">
-        {moviesToRender.map((movie)=>{
-            return (<MoviesCard isCardliked={true} isCardSaved={false} imageLink={movie.imageLink} title={movie.title} duration={movie.duration} altText={movie.name} key= {movie.id}/>)
-        })}
-      </section>
+      <>
+        {isLoading ? (
+          <Preloader/>
+            ) : (
+              <section className="list">
+                {
+                        moviesToRender.map((movie, index) => {
+                          const isLiked = savedMovies.some(saved => saved.movieId === movie.id)
+                         
+                            return (
+                              <MoviesCard
+                                savedMovies={savedMovies}
+                                movie={movie}
+                                isLiked={isLiked}
+                                key={`${movie.id}_${index}`}
+                              />)
+                        })}
+              </section>
+            )
+            }
+      </>
     )
+
 }
 
 export default MoviesCardList

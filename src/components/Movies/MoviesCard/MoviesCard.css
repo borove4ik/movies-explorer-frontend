@@ -1,15 +1,22 @@
 .card {
     max-width: 364px;
+    width: 100%;
     background: #222222;
-    max-height: 281px;
     border-radius: 6px;
-    box-shadow: 0px 4px 30px 0px #00000014;
+    box-shadow: 0px 4px 30px 0px #00000014;   
+
+}
+
+.card__link {
     display: flex;
     flex-direction: column;
+    outline: none;
+    color: #FFFF;
+    text-decoration: none;
 }
 
 .card__image {
-    min-height: 203px;
+    height: 203px;
     width: 100%;
 }
 
@@ -31,6 +38,10 @@
     line-height: 16px;
     text-align: left;
     margin: 0;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card__button {
@@ -56,10 +67,9 @@
 @media (max-width: 970px) {
     .card {
         max-width: 339px;
-        max-height: 262px;
     }
     .card__image {
-        min-height: 190px;
+        height: 190px;
     }
     .card__info {
         padding: 8px 14px 14px;
@@ -69,10 +79,9 @@
 @media (max-width: 670px) {
     .card {
         max-width: 300px;
-        max-height: 237px;
     }
     .card__image {
-        min-height: 168px;
+        height: 168px;
     }
     .card__info {
         padding: 7px 10px 14px 14px;
